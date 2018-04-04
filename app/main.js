@@ -5,11 +5,6 @@ import YearControlBase from "./components/yearcontrolbase";
 import YearControlSwipe from "./components/yearcontrolswipe";
 import Effects from "./components/effects";
 
-//let Dragdealer = dd.Dragdealer;
-// require("leaflet-easyprint");
-// require("leaflet-measure/dist/leaflet-measure.js");
-// require("leaflet-search");
-
 import { years, aerials } from "./js/layers";
 
 let sharedState = {

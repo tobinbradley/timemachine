@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn run assets:dev && npm-run-all --parallel watch:*",
-    "build": "NODE_ENV=production yarn run assets:prod && npm-run-all prod:* && yarn run critical && yarn run pwa",
+    "build":
+      "NODE_ENV=production yarn run assets:prod && npm-run-all prod:* && yarn run critical && yarn run pwa",
     "assets:dev": "node build/copy.js",
     "assets:prod": "node build/clean.js",
     "critical": "node build/critical.css.js",
@@ -15,14 +16,15 @@
     "pwa": "node build/sw.js",
     "watch:assets": "onchange 'app/assets/**/*' -- yarn run assets:dev",
     "watch:postcss": "postcss app/main.css -m -o dist/bundle.css -w",
-    "watch:server": "browser-sync start --server 'dist' --files 'dist'",
+    "watch2:server": "browser-sync start --server 'dist' --files 'dist'",
+    "watch:server": "live-server --port=3000 --open=dist --watch=dist",
     "watch:webpack": "webpack --mode development --progress --watch"
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
-    "browser-sync": "^2.23.6",
     "cssnano": "^3.10.0",
+    "live-server": "^1.2.0",
     "npm-run-all": "^4.1.2",
     "onchange": "^3.3.0",
     "postcss-cli": "^5.0.0",
