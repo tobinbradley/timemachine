@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  height: 50px;
+  background: var(--colorLight);
+  color: var(--colorDark);
+}
+
+h1 {
+  margin: 0 0 0 15px;
+  line-height: 50px;
+  text-transform: uppercase;
+  font-size: 1.6em;
+  letter-spacing: 4px;
+}
+
+h1 span {
+  color: #6c802f;
+  /* text-shadow: 1px 1px 1px #333; */
+}
+
+.btnSidebar {
+  margin: 10px;
+}

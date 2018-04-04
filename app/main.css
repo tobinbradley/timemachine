@@ -1,0 +1,27 @@
+/** Vendor stuff */
+@import "../node_modules/normalize.css/normalize.css";
+@import "../node_modules/leaflet/dist/leaflet.css";
+@import "../node_modules/dragdealer/src/dragdealer.css";
+@import "../node_modules/leaflet-measure/dist/leaflet-measure.css";
+@import "../node_modules/leaflet-search/dist/leaflet-search.min.css";
+
+/** awesome stuff */
+@import "css/_variables.css";
+@import "css/_layout.css";
+@import "css/_buttons.css";
+@import "css/_header.css";
+@import "css/_map.css";
+@import "css/_yearcontrol.css";
+@import "css/_leaflet-measure.css";
+@import "css/_range.css";
+
+body {
+  font-family: -apple-system, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans;
+  overflow: hidden;
+  margin: 0;
+}
+
+.text-right {
+  text-align: right;
+}

@@ -1,0 +1,72 @@
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  width: 250px;
+  top: 0;
+  bottom: 0;
+  overflow: visible;
+  overflow-y: auto;
+  background: #333333;
+  padding: 10px;
+  color: #eee;
+  box-sizing: border-box;
+}
+
+.content {
+  flex: 1;
+  background: #eee;
+  will-change: transform;
+  transition: transform 0.5s ease-in-out;
+  padding-bottom: 20px;
+  z-index: 1;
+}
+
+.content.isOpen {
+  transform: translate3d(250px, 0, 0);
+}
+
+/* sidebar activation button */
+.btnSidebar {
+  width: 30px;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  height: 4px;
+  width: 30px;
+  background-color: var(--colorDark);
+  margin: 5px auto;
+}
+.bar {
+  transition: all 0.7s ease;
+}
+
+.btnSidebar.active .bar {
+  transition: all 0.7s ease;
+}
+
+.btnSidebar.active .top {
+  transform: translateY(9px) rotateZ(45deg);
+}
+
+.btnSidebar.active .bottom {
+  transform: translateY(-9px) rotateZ(-45deg);
+}
+
+.btnSidebar.active .middle {
+  width: 0;
+}

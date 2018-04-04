@@ -1,0 +1,38 @@
+.leaflet-control-measure .leaflet-control-measure-toggle,
+.leaflet-control-measure .leaflet-control-measure-toggle:hover {
+  background-image: url(img/rulers.png);
+}
+.leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle,
+.leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle:hover {
+  background-image: url(img/rulers_@2X.png);
+}
+.leaflet-control-measure a.start {
+  background-image: url("img/start.png");
+}
+.leaflet-retina .leaflet-control-measure a.start {
+  background-image: url("img/start_@2X.png");
+}
+.leaflet-control-measure a.cancel {
+  background-image: url("img/cancel.png");
+}
+.leaflet-retina .leaflet-control-measure a.cancel {
+  background-image: url("img/cancel_@2X.png");
+}
+.leaflet-control-measure a.finish {
+  background-image: url("img/check.png");
+}
+.leaflet-retina .leaflet-control-measure a.finish {
+  background-image: url("img/check_@2X.png");
+}
+.leaflet-measure-resultpopup a.zoomto {
+  background-image: url("img/focus.png");
+}
+.leaflet-retina .leaflet-measure-resultpopup a.zoomto {
+  background-image: url("assets/focus_@2X.png");
+}
+.leaflet-measure-resultpopup a.deletemarkup {
+  background-image: url("img/trash.png");
+}
+.leaflet-retina .leaflet-measure-resultpopup a.deletemarkup {
+  background-image: url("img/trash_@2X.png");
+}
