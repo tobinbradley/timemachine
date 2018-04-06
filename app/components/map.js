@@ -1,21 +1,13 @@
-import L from "leaflet";
-require("leaflet-easyprint");
-require("leaflet-measure/dist/leaflet-measure.js");
-require("leaflet-search");
-
-// format search results into something the control likes
-function formatJSON(rawjson) {
-  let results = {};
-  for (var i in rawjson) {
-    results[rawjson[i].label] = L.latLng(rawjson[i].lat, rawjson[i].lng);
-  }
-  return results;
-}
+import mapboxgl from "mapbox-gl";
+import Compare from "mapbox-gl-compare";
+import MapboxGeocoder from "mapbox-gl-geocoder";
+//import MapboxDraw from "mapbox-gl-draw";
+import GLImage from "../js/gl-image";
 
 const template = `
 <div class="mapcontainer">
-<div id="map"></div>
-<input id='swipe' class='range' type='range' min='0' max='1.0' value='0' step='any' style="z-index: 10" v-model="privateState.clip" @input='moveYears' />
+  <div id='beforeMap' class='map'></div>
+  <div id='afterMap' class='map'></div>
 </div>
 `;
 
@@ -26,86 +18,151 @@ export default {
     this.initMap();
   },
   watch: {
-    "sharedState.basemap": "changeBasemap",
-    "sharedState.overlay": "changeOverlay",
-    "privateState.clip": "clip"
+    "sharedState.beforeYear": "setBeforeLayer",
+    "sharedState.afterYear": "setAfterLayer",
+    "sharedState.effects.huerotate": "setAllEffects",
+    "sharedState.effects.brightness": "setAllEffects",
+    "sharedState.effects.contrast": "setAllEffects",
+    "sharedState.effects.saturate": "setAllEffects"
   },
   methods: {
     initMap: function() {
       let _this = this;
-      let map = L.map("map", {
-        maxZoom: 17
-      }).setView(_this.privateState.center, _this.privateState.zoom);
+      let beforeMap = new mapboxgl.Map({
+        container: "beforeMap",
+        style: { version: 8, sources: {}, layers: [] },
+        attributionControl: false,
+        center: _this.privateState.center,
+        zoom: _this.privateState.zoom,
+        minZoom: 8,
+        maxZoom: 18,
+        preserveDrawingBuffer: true
+      });
+      let afterMap = new mapboxgl.Map({
+        container: "afterMap",
+        style: { version: 8, sources: {}, layers: [] },
+        attributionControl: false,
+        center: _this.privateState.center,
+        zoom: _this.privateState.zoom,
+        minZoom: 8,
+        maxZoom: 18,
+        preserveDrawingBuffer: true
+      });
 
-      // add starting layers
-      _this.sharedState.basemap.addTo(map);
-      _this.sharedState.swipemap.addTo(map);
+      // set map state
+      beforeMap.on("load", function() {
+        _this.privateState.beforeMap = beforeMap;
+        _this.setBeforeLayer();
+      });
 
-      // map controls
-      map.addControl(
-        new L.Control.Search({
-          url:
-            "http://maps.co.mecklenburg.nc.us/api/search/v1/{s}?tables=address,pid",
-          formatData: formatJSON,
-          zoom: 16,
-          minLength: 4,
-          position: "topright"
-        })
+      afterMap.on("load", function() {
+        _this.privateState.afterMap = afterMap;
+        _this.setAfterLayer();
+      });
+
+      // swipe control
+      let map = new Compare(beforeMap, afterMap, {});
+      beforeMap.addControl(new mapboxgl.NavigationControl(), "top-left");
+
+      // geocoder control
+      let geocoder = new MapboxGeocoder({
+        accessToken:
+          "pk.eyJ1IjoiZnV6enl0b2xlcmFuY2UiLCJhIjoiWk5SS2NqRSJ9.pt08fCnJBVi8GhH4wYhyiQ",
+        bbox: [
+          -81.0581540000000018,
+          35.0016219999999976,
+          -80.5503640000000019,
+          35.515197999999998
+        ]
+      });
+      geocoder.on("result", function(ev) {
+        console.log(ev.result);
+      });
+      afterMap.addControl(geocoder, "top-right");
+
+      // draw control
+      // var draw = new MapboxDraw({
+      //   displayControlsDefault: false,
+      //   controls: {
+      //     polygon: true,
+      //     trash: true
+      //   }
+      // });
+      // beforeMap.addControl(draw, "top-left");
+      // beforeMap.on("draw.create", _this.updateArea);
+      // beforeMap.on("draw.delete", _this.updateArea);
+      //beforeMap.on("draw.update", _this.updateArea);
+
+      // download maps control
+      //afterMap.addControl(new GLImage({}), "top-right");
+    },
+    updateArea: function(e) {},
+    setAfterLayer: function() {
+      this.setLayer(this.privateState.afterMap, this.sharedState.afterYear);
+    },
+    setBeforeLayer: function() {
+      let _this = this;
+      this.setLayer(_this.privateState.beforeMap, _this.sharedState.beforeYear);
+    },
+    setAllEffects: function() {
+      this.setEffects(this.privateState.beforeMap);
+      this.setEffects(this.privateState.afterMap);
+    },
+    setEffects: function(map) {
+      let _this = this;
+
+      map.setPaintProperty(
+        "basemap",
+        "raster-hue-rotate",
+        Number(_this.sharedState.effects.huerotate)
       );
-      L.easyPrint({
-        title: "Download Image",
-        exportOnly: true,
-        position: "topleft",
-        sizeModes: ["Current", "A4Portrait", "A4Landscape"]
-      }).addTo(map);
-      L.easyPrint({
-        title: "Print",
-        position: "topleft",
-        sizeModes: ["Current", "A4Portrait", "A4Landscape"]
-      }).addTo(map);
-      var measureControl = new L.Control.Measure({ position: "topleft" });
-      measureControl.addTo(map);
-
-      _this.privateState.map = map;
-
-      // swipe
-      map.on("move", _this.clip);
-      map.on("resize", _this.moveYears);
-      _this.clip();
+      map.setPaintProperty(
+        "basemap",
+        "raster-brightness-min",
+        Number(_this.sharedState.effects.brightness)
+      );
+      map.setPaintProperty(
+        "basemap",
+        "raster-saturation",
+        Number(_this.sharedState.effects.saturate)
+      );
+      map.setPaintProperty(
+        "basemap",
+        "raster-contrast",
+        Number(_this.sharedState.effects.contrast)
+      );
     },
-    clip: function() {
-      let _this = this;
-      var nw = _this.privateState.map.containerPointToLayerPoint([0, 0]),
-        se = _this.privateState.map.containerPointToLayerPoint(
-          _this.privateState.map.getSize()
-        ),
-        clipX = nw.x + (se.x - nw.x) * _this.privateState.clip;
-
-      this.sharedState.swipemap.getContainer().style.clip =
-        "rect(" + [nw.y, clipX, se.y, nw.x].join("px,") + "px)";
-    },
-    moveYears: function(e) {
-      let _this = this;
-      let val;
-      if (e.srcElement) {
-        val = e.srcElement.value;
-      } else {
-        val = document.querySelector("#swipe").value;
-      }
-      let width = _this.privateState.map.getSize().x;
-      let pos = val * width;
-      let yearMain = document.querySelector(".year-control.year-main");
-      let yearSwipe = document.querySelector(".year-control.year-swipe");
-      yearMain.style.left = pos + 30 + "px";
-      yearSwipe.style.left = pos - 130 + "px";
-
-      if (pos < 150) {
-        yearSwipe.style.display = "none";
-      } else {
-        yearSwipe.style.display = "block";
+    removeLayer: function(map) {
+      // remove any overlays
+      if (map.getLayer("basemap")) {
+        map.removeLayer("basemap");
+        map.removeSource("basemap");
       }
     },
-    changeBasemap: function() {},
-    changeOverlay: function() {}
+    setLayer: function(map, year) {
+      let _this = this;
+      // remove old stuff
+      _this.removeLayer(map);
+
+      map.addLayer({
+        id: "basemap",
+        type: "raster",
+        source: {
+          type: "raster",
+          tiles: [_this.sharedState.aerials[year].url],
+          tileSize: 256,
+          maxzoom: _this.sharedState.aerials[year].maxZoom,
+          minzoom: _this.sharedState.aerials[year].minZoom
+        },
+        minzoom: 8,
+        maxzoom: 19,
+        paint: {
+          "raster-opacity": 1
+        }
+      });
+
+      // set effects
+      _this.setEffects(map);
+    }
   }
 };

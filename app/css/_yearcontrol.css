@@ -1,6 +1,6 @@
 .year-control {
   position: absolute;
-  bottom: 15px;
+  bottom: 10px;
   white-space: nowrap;
   z-index: 1000;
   border-radius: 3px;
@@ -14,12 +14,11 @@
   visibility: hidden;
 }
 .year-control.year-main {
-  left: 30px;
+  left: 10px;
 }
 
 .year-control.year-swipe {
-  left: -130px;
-  display: none;
+  right: 10px;
 }
 .year-control span {
   padding: 0 10px;

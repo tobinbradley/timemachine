@@ -7,39 +7,14 @@
   background: black;
 }
 
-.leaflet-container .leaflet-control-search {
-  margin-left: 12px !important;
+.map {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  width: 100%;
 }
 
-.leaflet-control-search .search-button {
-  width: 30px;
-  height: 30px;
-  background-position: center center;
-  border-radius: 2px;
-}
-
-.leaflet-control-search .search-button:hover {
-  background-position: center center;
-}
-
-.leaflet-control-search .search-input {
-  margin-top: 5px;
-  width: 200px;
-}
-
-.leaflet-control-search .search-cancel {
-  margin-top: 5px;
-  right: 26px;
-}
-
-/* fix for search control image locations */
-.leaflet-control-search.search-load .search-input {
-  background-image: url("img/loader.gif");
-}
-.leaflet-control-search .search-cancel {
-  background-image: url("img/search-icon.png");
-}
-.leaflet-control-search .search-button:hover,
-.leaflet-control-search .search-button {
-  background-image: url("img/search-icon.png");
+.mapboxgl-compare .compare-swiper {
+  bottom: 50px !important;
+  top: inherit;
 }

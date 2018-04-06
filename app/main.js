@@ -1,8 +1,8 @@
-import L from "leaflet";
 import Vue from "vue/dist/vue.js";
 import Map from "./components/map";
-import YearControlBase from "./components/yearcontrolbase";
-import YearControlSwipe from "./components/yearcontrolswipe";
+import YearControlBefore from "./components/yearcontrolbefore";
+import YearControlAfter from "./components/yearcontrolafter";
+//import YearControlSwipe from './components/yearcontrolswipe';
 import Effects from "./components/effects";
 
 import { years, aerials } from "./js/layers";
@@ -10,23 +10,13 @@ import { years, aerials } from "./js/layers";
 let sharedState = {
   aerials: aerials,
   years: years,
-  basemap: L.tileLayer(aerials[years[years.length - 1]], {
-    maxZoom: 17,
-    attribution:
-      '<a target="_blank" href="http://maps.co.mecklenburg.nc.us/openmapping/">Mecklenburg County GIS</a>'
-  }),
-  swipemap: L.tileLayer(aerials[years[0]], {
-    maxZoom: 17
-  }),
-  pictures: false,
+  afterYear: years[years.length - 1],
+  beforeYear: years[0],
   effects: {
-    brightness: "1", // 0 to 2
-    contrast: "1", // 0 to 2
-    grayscale: "0", // 0 to 1
-    huerotate: "0", // 0 to 360deg
-    invert: "0", // 0 to 1
-    saturate: "0", // 0 to 2
-    sepia: "0" // 0 to 1
+    brightness: 0, // 0 to 1
+    contrast: 0, // -1 to 1
+    huerotate: 0, // 0 to 360
+    saturate: 0 // -1 to 1
   }
 };
 
@@ -43,10 +33,10 @@ Map.data = function() {
   return {
     privateState: {
       map: null,
-      locationMarker: null,
-      center: [35.227, -80.843],
+      center: [-80.843, 35.227],
       zoom: 15,
-      clip: 0
+      beforeMap: null,
+      afterMap: null
     },
     sharedState: sharedState
   };
@@ -56,45 +46,47 @@ new Vue({
   render: h => h(Map)
 });
 
-YearControlBase.data = function() {
+YearControlBefore.data = function() {
   return {
-    year: sharedState.years[sharedState.years.length - 1],
-    atStart: false,
-    atEnd: true,
-    layer: sharedState.basemap,
-    sharedState: sharedState
+    sharedState: sharedState,
+    atStart: true,
+    atEnd: false
   };
 };
 new Vue({
   el: "sc-yearmain",
-  render: h => h(YearControlBase)
+  render: h => h(YearControlBefore)
 });
 
-YearControlSwipe.data = function() {
+YearControlAfter.data = function() {
   return {
-    year: sharedState.years[0],
-    atStart: true,
-    atEnd: false,
-    layer: sharedState.swipemap,
-    sharedState: sharedState
+    sharedState: sharedState,
+    atStart: false,
+    atEnd: true
   };
 };
 new Vue({
   el: "sc-yearoverlay",
-  render: h => h(YearControlSwipe)
+  render: h => h(YearControlAfter)
 });
+
+//YearControlSwipe.data = function() {
+//  return {
+//    year: sharedState.years[0],
+//    atStart: true,
+//    atEnd: false,
+//    layer: sharedState.swipemap,
+//    sharedState: sharedState
+//  };
+//};
+//new Vue({
+//  el: "sc-yearoverlay",
+//  render: h => h(YearControlSwipe)
+//});
 
 Effects.data = function() {
   return {
-    privateState: {
-      brightness: "1", // 0 to 2
-      contrast: "1", // 0 to 2
-      grayscale: "0", // 0 to 1
-      huerotate: "0", // 0 to 360deg
-      invert: "0", // 0 to 1
-      saturate: "1", // 0 to 2
-      sepia: "0" // 0 to 1
-    }
+    sharedState: sharedState
   };
 };
 new Vue({

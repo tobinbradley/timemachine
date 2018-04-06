@@ -23,6 +23,24 @@ body {
   padding: 10px;
   color: #eee;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  color: #eee;
+  text-decoration: none;
+  transition: color ease-in-out 0.3s;
+}
+.sidebar a:hover {
+  color: aquamarine;
+}
+.sidebar .links {
+  flex: 1;
+  font-size: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .content {

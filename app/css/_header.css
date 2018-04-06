@@ -1,3 +1,6 @@
+header {
+  overflow: hidden;
+}
 .navbar {
   display: flex;
   height: 50px;

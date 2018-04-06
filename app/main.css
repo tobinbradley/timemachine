@@ -1,9 +1,9 @@
 /** Vendor stuff */
 @import "../node_modules/normalize.css/normalize.css";
-@import "../node_modules/leaflet/dist/leaflet.css";
-@import "../node_modules/dragdealer/src/dragdealer.css";
-@import "../node_modules/leaflet-measure/dist/leaflet-measure.css";
-@import "../node_modules/leaflet-search/dist/leaflet-search.min.css";
+@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+@import "../node_modules/mapbox-gl-compare/dist/mapbox-gl-compare.css";
+@import "../node_modules/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+@import "../node_modules/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 /** awesome stuff */
 @import "css/_variables.css";
@@ -12,8 +12,6 @@
 @import "css/_header.css";
 @import "css/_map.css";
 @import "css/_yearcontrol.css";
-@import "css/_leaflet-measure.css";
-@import "css/_range.css";
 
 body {
   font-family: -apple-system, system-ui, -apple-system, BlinkMacSystemFont,
@@ -24,4 +22,12 @@ body {
 
 .text-right {
   text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
+input[type="range"] {
+  width: 100%;
+  padding: 5px 0 8px;
 }
