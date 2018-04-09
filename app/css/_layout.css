@@ -47,9 +47,10 @@ body {
   flex: 1;
   background: #eee;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
   transition: transform 0.5s ease-in-out;
-  padding-bottom: 20px;
   z-index: 1;
+  height: 100vh;
 }
 
 .content.isOpen {
