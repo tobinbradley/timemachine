@@ -7,7 +7,7 @@
   background: rgba(255, 255, 255, 1);
   height: 25px;
   line-height: 25px;
-  width: 102px;
+  /* width: 102px; */
 }
 
 .year-control .inactive {
@@ -20,8 +20,11 @@
 .year-control.year-swipe {
   right: 10px;
 }
-.year-control span {
-  padding: 0 10px;
+.year-control select {
+  padding: 0px 8px;
+  background: inherit;
+  border: none;
+  outline: none;
 }
 
 .year-control a {

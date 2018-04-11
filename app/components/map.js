@@ -80,6 +80,9 @@ export default {
       });
       afterMap.addControl(geocoder, "top-right");
 
+      // attribution
+      //afterMap.addControl(new mapboxgl.AttributionControl({}), "top-right");
+
       // draw control
       // var draw = new MapboxDraw({
       //   displayControlsDefault: false,
@@ -95,6 +98,7 @@ export default {
 
       // download maps control
       //afterMap.addControl(new GLImage({}), "top-right");
+      //beforeMap.addControl(new GLImage({}), "top-left");
     },
     updateArea: function(e) {},
     setAfterLayer: function() {
@@ -152,7 +156,9 @@ export default {
           tiles: [_this.sharedState.aerials[year].url],
           tileSize: 256,
           maxzoom: _this.sharedState.aerials[year].maxZoom,
-          minzoom: _this.sharedState.aerials[year].minZoom
+          minzoom: _this.sharedState.aerials[year].minZoom,
+          attribution:
+            "<a href='http://emaps.charmeck.org/' target='_blank'>Mecklenburg County GIS</a>"
         },
         minzoom: 8,
         maxzoom: 19,

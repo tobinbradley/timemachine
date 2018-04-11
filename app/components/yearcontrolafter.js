@@ -1,7 +1,12 @@
 let template = `
 <div>
   <a href="#" v-on:click="changeYear(-1)" v-bind:class="{ inactive: atStart }">&lt;</a>
-  <span class="year">{{sharedState.afterYear}}</span>
+  <select v-model="sharedState.afterYear">
+    <option v-for="year in sharedState.years"
+        :selected="sharedState.afterYear === year">
+       {{ year }}
+    </option>
+  </select>
   <a href="#" v-on:click="changeYear(1)" v-bind:class="{ inactive: atEnd }">&gt;</a>
 </div>
 `;
