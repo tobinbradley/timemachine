@@ -2,9 +2,7 @@ import Vue from "vue/dist/vue.js";
 import Map from "./components/map";
 import YearControlBefore from "./components/yearcontrolbefore";
 import YearControlAfter from "./components/yearcontrolafter";
-//import YearControlSwipe from './components/yearcontrolswipe';
 import Effects from "./components/effects";
-
 import { years, aerials } from "./js/layers";
 
 let sharedState = {
@@ -13,10 +11,10 @@ let sharedState = {
   afterYear: years[years.length - 1],
   beforeYear: years[0],
   effects: {
-    brightness: 0, // 0 to 1
-    contrast: 0, // -1 to 1
-    huerotate: 0, // 0 to 360
-    saturate: 0 // -1 to 1
+    brightness: 0,
+    contrast: 0,
+    huerotate: 0,
+    saturate: 0
   }
 };
 

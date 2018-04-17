@@ -24,3 +24,23 @@ h1 span {
 .btnSidebar {
   margin: 10px;
 }
+
+.header-links {
+  flex: 1;
+  text-align: right;
+}
+.header-links a {
+  line-height: 50px;
+  text-decoration: none;
+  padding-right: 15px;
+  color: #6c802f;
+  transition: color 0.3s ease-in;
+}
+.header-links a:hover {
+  color: #4c5a21;
+}
+@media screen and (max-width: 700px) {
+  .header-links {
+    display: none;
+  }
+}

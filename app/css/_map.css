@@ -13,6 +13,10 @@
   bottom: 0;
   width: 100%;
 }
+#beforeMap,
+#afterMap {
+  background: black;
+}
 
 .mapboxgl-compare .compare-swiper {
   bottom: 50px !important;
