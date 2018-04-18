@@ -80,9 +80,6 @@ export default {
       });
       afterMap.addControl(geocoder, "top-right");
 
-      // attribution
-      //afterMap.addControl(new mapboxgl.AttributionControl({}), "top-right");
-
       // draw control
       // var draw = new MapboxDraw({
       //   displayControlsDefault: false,
@@ -97,8 +94,14 @@ export default {
       //beforeMap.on("draw.update", _this.updateArea);
 
       // download maps control
-      //afterMap.addControl(new GLImage({}), "top-right");
-      //beforeMap.addControl(new GLImage({}), "top-left");
+      afterMap.addControl(
+        new GLImage({ state: _this.sharedState }),
+        "top-right"
+      );
+      beforeMap.addControl(
+        new GLImage({ state: _this.sharedState }),
+        "top-left"
+      );
     },
     updateArea: function(e) {},
     setAfterLayer: function() {

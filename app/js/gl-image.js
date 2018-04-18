@@ -1,24 +1,26 @@
+const FileSaver = require("file-saver");
+
 export default class GLImage {
-  constructor({}) {}
+  constructor({ state = null }) {
+    this._state = state;
+  }
   onAdd(map) {
     this._map = map;
     let _this = this;
 
     this._btn = document.createElement("button");
-    this._btn.className = "mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-3d";
+    this._btn.className = "mapboxgl-ctrl-icon mapboxgl-ctrl-gl-image";
     this._btn.type = "button";
     this._btn.setAttribute("aria-label", "download map image");
     this._btn.onclick = function() {
-      let dataURL = map.getCanvas().toDataURL("image/jpeg");
-
-      // download image
-      var link = document.createElement("a");
-      link.download = "timemachine.jpg";
-      var uri = dataURL;
-      link.href = uri;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      let mapId = map.getContainer().getAttribute("id");
+      let year = null;
+      mapId === "beforeMap"
+        ? (year = _this._state.beforeYear)
+        : (year = _this._state.afterYear);
+      let dataURL = map.getCanvas().toBlob(function(blob) {
+        FileSaver.saveAs(blob, `Time Machine - ${year}.png`);
+      });
     };
 
     this._container = document.createElement("div");
