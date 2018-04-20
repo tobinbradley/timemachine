@@ -1,6 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import Compare from "mapbox-gl-compare";
-import MapboxGeocoder from "mapbox-gl-geocoder";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 //import MapboxDraw from "mapbox-gl-draw";
 import GLImage from "../js/gl-image";
 
@@ -65,16 +65,7 @@ export default {
       beforeMap.addControl(new mapboxgl.NavigationControl(), "top-left");
 
       // geocoder control
-      let geocoder = new MapboxGeocoder({
-        accessToken:
-          "pk.eyJ1IjoiZnV6enl0b2xlcmFuY2UiLCJhIjoiWk5SS2NqRSJ9.pt08fCnJBVi8GhH4wYhyiQ",
-        bbox: [
-          -81.0581540000000018,
-          35.0016219999999976,
-          -80.5503640000000019,
-          35.515197999999998
-        ]
-      });
+      let geocoder = new MapboxGeocoder({});
       geocoder.on("result", function(ev) {
         console.log(ev.result);
       });

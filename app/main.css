@@ -2,7 +2,7 @@
 @import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
 @import "../node_modules/mapbox-gl-compare/dist/mapbox-gl-compare.css";
-@import "../node_modules/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+@import "../node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
 @import "../node_modules/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 /** awesome stuff */
