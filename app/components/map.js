@@ -1,7 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import Compare from "mapbox-gl-compare";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-//import MapboxDraw from "mapbox-gl-draw";
 import GLImage from "../js/gl-image";
 
 const template = `
@@ -70,19 +69,6 @@ export default {
         console.log(ev.result);
       });
       afterMap.addControl(geocoder, "top-right");
-
-      // draw control
-      // var draw = new MapboxDraw({
-      //   displayControlsDefault: false,
-      //   controls: {
-      //     polygon: true,
-      //     trash: true
-      //   }
-      // });
-      // beforeMap.addControl(draw, "top-left");
-      // beforeMap.on("draw.create", _this.updateArea);
-      // beforeMap.on("draw.delete", _this.updateArea);
-      //beforeMap.on("draw.update", _this.updateArea);
 
       // download maps control
       afterMap.addControl(
