@@ -1,17 +1,16 @@
 /** Vendor stuff */
-@import "../node_modules/normalize.css/normalize.css";
-@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
-@import "../node_modules/mapbox-gl-compare/dist/mapbox-gl-compare.css";
-@import "../node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
-@import "../node_modules/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+@import '../node_modules/normalize.css/normalize.css';
+@import '../node_modules/mapbox-gl/dist/mapbox-gl.css';
+@import '../node_modules/mapbox-gl-compare/dist/mapbox-gl-compare.css';
+@import '../node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';
 
 /** awesome stuff */
-@import "css/_variables.css";
-@import "css/_layout.css";
-@import "css/_buttons.css";
-@import "css/_header.css";
-@import "css/_map.css";
-@import "css/_yearcontrol.css";
+@import 'css/_variables.css';
+@import 'css/_layout.css';
+@import 'css/_buttons.css';
+@import 'css/_header.css';
+@import 'css/_map.css';
+@import 'css/_yearcontrol.css';
 
 body {
   font-family: -apple-system, system-ui, -apple-system, BlinkMacSystemFont,
@@ -27,7 +26,7 @@ body {
   text-align: center;
 }
 
-input[type="range"] {
+input[type='range'] {
   width: 100%;
   padding: 5px 0 8px;
 }
