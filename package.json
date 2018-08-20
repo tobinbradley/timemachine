@@ -5,13 +5,13 @@
   "author": "Tobin Bradley",
   "license": "MIT",
   "scripts": {
-    "start": "yarn run assets:dev && npm-run-all --parallel watch:*",
-    "build": "NODE_ENV=production yarn run assets:prod && npm-run-all prod:*",
+    "start": "npm run assets:dev && npm-run-all --parallel watch:*",
+    "build": "NODE_ENV=production npm run assets:prod && npm-run-all prod:*",
     "assets:dev": "node build/copy.js",
     "assets:prod": "node build/clean.js",
     "prod:postcss": "postcss app/main.css -m -o dist/bundle.css",
     "prod:webpack": "webpack --mode production",
-    "watch:assets": "onchange 'app/assets/**/*' -- yarn run assets:dev",
+    "watch:assets": "onchange 'app/assets/**/*' -- npm run assets:dev",
     "watch:postcss": "postcss app/main.css -m -o dist/bundle.css -w",
     "watch:server": "browser-sync start --server 'dist' --files 'dist'",
     "watch:webpack": "webpack --mode development --progress --watch"
