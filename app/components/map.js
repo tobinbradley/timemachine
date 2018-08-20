@@ -13,7 +13,7 @@ const template = `
 export default {
   name: "themap",
   template: template,
-  mounted: function() {
+  mounted: function () {
     this.initMap();
   },
   watch: {
@@ -25,36 +25,46 @@ export default {
     "sharedState.effects.saturate": "setAllEffects"
   },
   methods: {
-    initMap: function() {
+    initMap: function () {
       let _this = this;
       let beforeMap = new mapboxgl.Map({
         container: "beforeMap",
-        style: { version: 8, sources: {}, layers: [] },
+        style: {
+          version: 8,
+          sources: {},
+          layers: []
+        },
         attributionControl: false,
         center: _this.privateState.center,
         zoom: _this.privateState.zoom,
         minZoom: 8,
         maxZoom: 18,
-        preserveDrawingBuffer: true
+        preserveDrawingBuffer: true,
+        hash: true
       });
       let afterMap = new mapboxgl.Map({
         container: "afterMap",
-        style: { version: 8, sources: {}, layers: [] },
+        style: {
+          version: 8,
+          sources: {},
+          layers: []
+        },
         attributionControl: false,
         center: _this.privateState.center,
         zoom: _this.privateState.zoom,
         minZoom: 8,
         maxZoom: 18,
-        preserveDrawingBuffer: true
+        preserveDrawingBuffer: true,
+        hash: true
       });
 
       // set map state
-      beforeMap.on("load", function() {
+      beforeMap.on("load", function () {
         _this.privateState.beforeMap = beforeMap;
         _this.setBeforeLayer();
       });
 
-      afterMap.on("load", function() {
+      afterMap.on("load", function () {
         _this.privateState.afterMap = afterMap;
         _this.setAfterLayer();
       });
@@ -65,34 +75,38 @@ export default {
 
       // geocoder control
       let geocoder = new MapboxGeocoder({});
-      geocoder.on("result", function(ev) {
+      geocoder.on("result", function (ev) {
         console.log(ev.result);
       });
       afterMap.addControl(geocoder, "top-right");
 
       // download maps control
       afterMap.addControl(
-        new GLImage({ state: _this.sharedState }),
+        new GLImage({
+          state: _this.sharedState
+        }),
         "top-right"
       );
       beforeMap.addControl(
-        new GLImage({ state: _this.sharedState }),
+        new GLImage({
+          state: _this.sharedState
+        }),
         "top-left"
       );
     },
-    updateArea: function(e) {},
-    setAfterLayer: function() {
+    updateArea: function (e) {},
+    setAfterLayer: function () {
       this.setLayer(this.privateState.afterMap, this.sharedState.afterYear);
     },
-    setBeforeLayer: function() {
+    setBeforeLayer: function () {
       let _this = this;
       this.setLayer(_this.privateState.beforeMap, _this.sharedState.beforeYear);
     },
-    setAllEffects: function() {
+    setAllEffects: function () {
       this.setEffects(this.privateState.beforeMap);
       this.setEffects(this.privateState.afterMap);
     },
-    setEffects: function(map) {
+    setEffects: function (map) {
       let _this = this;
 
       map.setPaintProperty(
@@ -116,14 +130,14 @@ export default {
         Number(_this.sharedState.effects.contrast)
       );
     },
-    removeLayer: function(map) {
+    removeLayer: function (map) {
       // remove any overlays
       if (map.getLayer("basemap")) {
         map.removeLayer("basemap");
         map.removeSource("basemap");
       }
     },
-    setLayer: function(map, year) {
+    setLayer: function (map, year) {
       let _this = this;
       // remove old stuff
       _this.removeLayer(map);
@@ -137,8 +151,7 @@ export default {
           tileSize: 256,
           maxzoom: _this.sharedState.aerials[year].maxZoom,
           minzoom: _this.sharedState.aerials[year].minZoom,
-          attribution:
-            "<a href='http://emaps.charmeck.org/' target='_blank'>Mecklenburg County GIS</a>"
+          attribution: "<a href='http://emaps.charmeck.org/' target='_blank'>Mecklenburg County GIS</a>"
         },
         minzoom: 8,
         maxzoom: 19,
