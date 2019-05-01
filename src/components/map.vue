@@ -1,18 +1,20 @@
+
+
+<template>
+<div class="mapcontainer">
+  <div id='beforeMap' class='map'></div>
+  <div id='afterMap' class='map'></div>
+</div>
+</template>
+
+<script>
 import mapboxgl from "mapbox-gl";
 import Compare from "mapbox-gl-compare";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import GLImage from "../js/gl-image";
 
-const template = `
-<div class="mapcontainer">
-  <div id='beforeMap' class='map'></div>
-  <div id='afterMap' class='map'></div>
-</div>
-`;
-
 export default {
   name: "themap",
-  template: template,
   mounted: function () {
     this.initMap();
   },
@@ -165,3 +167,4 @@ export default {
     }
   }
 };
+</script>

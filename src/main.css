@@ -1,5 +1,5 @@
 /** Vendor stuff */
-@import '../node_modules/normalize.css/normalize.css';
+@import '../node_modules/@zellwk/css-reset/reset.css';
 @import '../node_modules/mapbox-gl/dist/mapbox-gl.css';
 @import '../node_modules/mapbox-gl-compare/dist/mapbox-gl-compare.css';
 @import '../node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';

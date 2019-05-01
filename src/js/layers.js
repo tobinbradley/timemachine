@@ -1,4 +1,9 @@
 const aerials = {
+  '2019': {
+    url: 'http://maps.co.mecklenburg.nc.us/tiles/2019/{z}/{x}/{y}.jpg',
+    minZoom: 11,
+    maxZoom: 18
+  },
   '2018': {
     url: 'http://maps.co.mecklenburg.nc.us/tiles/2018-high/{z}/{x}/{y}.jpg',
     minZoom: 11,
@@ -89,8 +94,8 @@ const aerials = {
     minZoom: 9,
     maxZoom: 17
   }
-};
+}
 
-const years = Object.keys(aerials);
+const years = Object.keys(aerials)
 
-export {aerials, years};
+export { aerials, years }

@@ -1,19 +1,18 @@
-let template = `
+<template>
 <div>
   <a href="#" v-on:click="changeYear(-1)" v-bind:class="{ inactive: atStart }">&lt;</a>
   <select v-model="sharedState.beforeYear">
-  <option v-for="year in sharedState.years"
-      :selected="sharedState.beforeYear === year">
+  <option v-for="year in sharedState.years" :selected="sharedState.beforeYear === year">
      {{ year }}
   </option>
 </select>
   <a href="#" v-on:click="changeYear(1)" v-bind:class="{ inactive: atEnd }">&gt;</a>
 </div>
-`;
+</template>
 
+<script>
 export default {
   name: "yearcontrol",
-  template: template,
   watch: {
     "sharedState.beforeYear": "fixArrows"
   },
@@ -37,3 +36,4 @@ export default {
     }
   }
 };
+</script>

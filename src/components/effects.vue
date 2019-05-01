@@ -1,13 +1,4 @@
-// document.querySelector('.leaflet-tile-container').style.filter = "magic";
-// brightness()
-// contrast()
-// grayscale()
-// hue-rotate()
-// invert()
-// saturate()
-// sepia()
-
-let template = `
+<template>
 <div class="mapeffects">
   <h3>Map Effects</h3>
   <label for="brightness">Brightness</label>
@@ -22,11 +13,11 @@ let template = `
     <button class="button" @click='resetMap'>Reset</button>
   </div>
 </div>
-`;
+</template>
 
+<script>
 export default {
   name: 'map-effects',
-  template: template,
   methods: {
     resetMap: function() {
       this.sharedState.effects.brightness = '0';
@@ -36,3 +27,4 @@ export default {
     }
   }
 };
+</script>
