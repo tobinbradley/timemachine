@@ -1,7 +1,7 @@
 
 
 <template>
-<div class="mapcontainer">
+<div id="mapcontainer" class="mapcontainer">
   <div id='beforeMap' class='map'></div>
   <div id='afterMap' class='map'></div>
 </div>
@@ -72,7 +72,7 @@ export default {
       });
 
       // swipe control
-      let map = new Compare(beforeMap, afterMap, {});
+      let map = new Compare(beforeMap, afterMap, '#mapcontainer', {});
       beforeMap.addControl(new mapboxgl.NavigationControl(), "top-left");
 
       // geocoder control
@@ -110,57 +110,80 @@ export default {
     },
     setEffects: function (map) {
       let _this = this;
+      const layers = map.getStyle().layers
+      const layerID = layers[layers.length - 1].id
 
       map.setPaintProperty(
-        "basemap",
+        layerID,
         "raster-hue-rotate",
         Number(_this.sharedState.effects.huerotate)
       );
       map.setPaintProperty(
-        "basemap",
+        layerID,
         "raster-brightness-min",
         Number(_this.sharedState.effects.brightness)
       );
       map.setPaintProperty(
-        "basemap",
+        layerID,
         "raster-saturation",
         Number(_this.sharedState.effects.saturate)
       );
       map.setPaintProperty(
-        "basemap",
+        layerID,
         "raster-contrast",
         Number(_this.sharedState.effects.contrast)
       );
     },
     removeLayer: function (map) {
-      // remove any overlays
-      if (map.getLayer("basemap")) {
-        map.removeLayer("basemap");
-        map.removeSource("basemap");
-      }
+      map.getStyle().layers.forEach(lyr => {
+        map.removeLayer(lyr.id)
+        map.removeSource(lyr.source)
+      })
     },
     setLayer: function (map, year) {
       let _this = this;
       // remove old stuff
       _this.removeLayer(map);
 
-      map.addLayer({
-        id: "basemap",
-        type: "raster",
-        source: {
+      const layer = _this.sharedState.aerials.filter(el => el.name === year)[0]
+
+      layer.url.forEach((url, idx) => {
+        map.addLayer({
+          id: `basemap-${idx}`,
           type: "raster",
-          tiles: [_this.sharedState.aerials[year].url],
-          tileSize: 256,
-          maxzoom: _this.sharedState.aerials[year].maxZoom,
-          minzoom: _this.sharedState.aerials[year].minZoom,
-          attribution: "<a href='http://emaps.charmeck.org/' target='_blank'>Mecklenburg County GIS</a>"
-        },
-        minzoom: 8,
-        maxzoom: 19,
-        paint: {
-          "raster-opacity": 1
-        }
-      });
+          source: {
+            type: "raster",
+            tiles: [url],
+            tileSize: 256,
+            maxzoom: layer.maxZoom,
+            minzoom: layer.minZoom,
+            attribution: "<a href='http://emaps.charmeck.org/' target='_blank'>Mecklenburg County GIS</a>"
+          },
+          minzoom: 8,
+          maxzoom: 19,
+          paint: {
+            "raster-opacity": 1
+          }
+        })
+      })
+
+      // map.addLayer({
+      //   id: "basemap",
+      //   type: "raster",
+      //   source: {
+      //     type: "raster",
+      //     tiles: [layer.url],
+      //     tileSize: 256,
+      //     maxzoom: layer.maxZoom,
+      //     minzoom: layer.minZoom,
+      //     attribution: "<a href='http://emaps.charmeck.org/' target='_blank'>Mecklenburg County GIS</a>"
+      //   },
+      //   minzoom: 8,
+      //   maxzoom: 19,
+      //   paint: {
+      //     "raster-opacity": 1
+      //   }
+      // });
 
       // set effects
       _this.setEffects(map);

@@ -11,14 +11,14 @@ Vue.config.productionTip = false
 let sharedState = {
   aerials: aerials,
   years: years,
-  afterYear: years[years.length - 1],
-  beforeYear: years[0],
+  beforeYear: years[years.length - 1],
+  afterYear: years[0],
   effects: {
     brightness: 0,
     contrast: 0,
     huerotate: 0,
-    saturate: 0
-  }
+    saturate: 0,
+  },
 }
 
 // navbar

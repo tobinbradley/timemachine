@@ -1,101 +1,152 @@
-const aerials = {
-  '2019': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2019/{z}/{x}/{y}.jpg',
+const aerials = [
+  {
+    name: '2019 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2019/{z}/{x}/{y}.jpg'],
     minZoom: 11,
-    maxZoom: 18
+    maxZoom: 18,
   },
-  '2018': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2018-high/{z}/{x}/{y}.jpg',
+  {
+    name: '2018 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2018-high/{z}/{x}/{y}.jpg'],
     minZoom: 11,
-    maxZoom: 18
+    maxZoom: 18,
   },
-  '2017': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2017/{z}/{x}/{y}.jpg',
+  {
+    name: '2017 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2017/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2016': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2016/{z}/{x}/{y}.jpg',
+  {
+    name: '2016 Tree Canopy',
+    url:
+      ['http://maps.co.mecklenburg.nc.us/tiles/2016/{z}/{x}/{y}.jpg',
+      'http://maps.co.mecklenburg.nc.us/tiles/treecanopy2016/{z}/{x}/{y}.png'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 16,
   },
-  '2015': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2015/{z}/{x}/{y}.jpg',
+  {
+    name: '2016 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2016/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2014': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2014/{z}/{x}/{y}.jpg',
+  {
+    name: '2015 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2015/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2013': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2013/{z}/{x}/{y}.jpg',
+  {
+    name: '2014 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2014/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2012': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2012/{z}/{x}/{y}.jpg',
+  {
+    name: '2013 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2013/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2011': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2011/{z}/{x}/{y}.jpg',
+  {
+    name: '2012 Tree Canopy',
+    url:
+      ['http://maps.co.mecklenburg.nc.us/tiles/2012/{z}/{x}/{y}.jpg',
+      'http://maps.co.mecklenburg.nc.us/tiles/treecanopy2012/{z}/{x}/{y}.png'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 16,
   },
-  '2010': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2010/{z}/{x}/{y}.jpg',
+  {
+    name: '2012 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2012/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2009': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2009/{z}/{x}/{y}.jpg',
+  {
+    name: '2011 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2011/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2007': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2007/{z}/{x}/{y}.jpg',
+  {
+    name: '2010 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2010/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2006': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2006/{z}/{x}/{y}.jpg',
+  {
+    name: '2009 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2009/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2005': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2005/{z}/{x}/{y}.jpg',
+  {
+    name: '2008 Tree Canopy',
+    url:
+      ['http://maps.co.mecklenburg.nc.us/tiles/2007/{z}/{x}/{y}.jpg',
+      'http://maps.co.mecklenburg.nc.us/tiles/treecanopy2008/{z}/{x}/{y}.png'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 16,
   },
-  '2004': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2004/{z}/{x}/{y}.jpg',
+  {
+    name: '2007 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2007/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '2002': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/2002/{z}/{x}/{y}.jpg',
+  {
+    name: '2006 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2006/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '1997': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/1997/{z}/{x}/{y}.jpg',
+  {
+    name: '2005 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2005/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '1993': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/1993/{z}/{x}/{y}.jpg',
+  {
+    name: '2004 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2004/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
+    maxZoom: 17,
   },
-  '1978': {
-    url: 'http://maps.co.mecklenburg.nc.us/tiles/1978/{z}/{x}/{y}.jpg',
+  {
+    name: '2002 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2002/{z}/{x}/{y}.jpg'],
     minZoom: 9,
-    maxZoom: 17
-  }
-}
+    maxZoom: 17,
+  },
+  {
+    name: '2001 Tree Canopy',
+    url:
+      ['http://maps.co.mecklenburg.nc.us/tiles/2002/{z}/{x}/{y}.jpg',
+      'http://maps.co.mecklenburg.nc.us/tiles/treecanopy2001/{z}/{x}/{y}.png'],
+    minZoom: 9,
+    maxZoom: 16,
+  },
+  {
+    name: '1997 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/1997/{z}/{x}/{y}.jpg'],
+    minZoom: 9,
+    maxZoom: 17,
+  },
+  {
+    name: '1993 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/1993/{z}/{x}/{y}.jpg'],
+    minZoom: 9,
+    maxZoom: 17,
+  },
+  {
+    name: '1978 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/1978/{z}/{x}/{y}.jpg'],
+    minZoom: 9,
+    maxZoom: 17,
+  },
+]
 
-const years = Object.keys(aerials)
+const years = aerials.map((el) => el.name)
 
 export { aerials, years }
