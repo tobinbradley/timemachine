@@ -9,16 +9,16 @@
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "github:tobinbradley/mapbox-gl-geocoder",
     "@zellwk/css-reset": "^0.1.0",
-    "core-js": "^2.6.5",
-    "file-saver": "^2.0.1",
-    "mapbox-gl": "^0.53.1",
-    "mapbox-gl-compare": "^0.2.0",
-    "vue": "^2.6.10"
+    "core-js": "^3.6.4",
+    "file-saver": "^2.0.2",
+    "mapbox-gl": "^1.9.1",
+    "mapbox-gl-compare": "^0.4.0",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.6.0",
-    "@vue/cli-service": "^3.6.0",
+    "@vue/cli-plugin-babel": "^4.3.0",
+    "@vue/cli-service": "^4.3.0",
     "postcss-import": "^12.0.1",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.11"
   }
 }
