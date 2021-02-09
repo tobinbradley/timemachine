@@ -46,9 +46,7 @@ new Vue({
 
 YearControlBefore.data = function() {
   return {
-    sharedState: sharedState,
-    atStart: true,
-    atEnd: false
+    sharedState: sharedState
   }
 }
 new Vue({
@@ -58,15 +56,26 @@ new Vue({
 
 YearControlAfter.data = function() {
   return {
-    sharedState: sharedState,
-    atStart: false,
-    atEnd: true
+    sharedState: sharedState
   }
 }
 new Vue({
   el: 'sc-yearoverlay',
   render: h => h(YearControlAfter)
 })
+
+// LayerControl.data = () => {
+//   return {
+//     sharedState: sharedState,
+//     years: sharedState.years,
+//     year: sharedState.afterYear
+//   }
+// }
+
+// new Vue({
+//   el: 'sc-yearoverlay',
+//   render: (h) => h(LayerControl)
+// })
 
 Effects.data = function() {
   return {
