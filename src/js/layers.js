@@ -1,5 +1,11 @@
 const aerials = [
   {
+    name: '2020 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/2020/{z}/{x}/{y}.jpg'],
+    minZoom: 8,
+    maxZoom: 18,
+  },
+  {
     name: '2019 Aerial',
     url: ['http://maps.co.mecklenburg.nc.us/tiles/2019/{z}/{x}/{y}.jpg'],
     minZoom: 11,
@@ -140,11 +146,29 @@ const aerials = [
     maxZoom: 17,
   },
   {
+    name: '1980 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/1980/{z}/{x}/{y}.jpg'],
+    minZoom: 9,
+    maxZoom: 17,
+  },
+  {
     name: '1978 Aerial',
     url: ['http://maps.co.mecklenburg.nc.us/tiles/1978/{z}/{x}/{y}.jpg'],
     minZoom: 9,
     maxZoom: 17,
   },
+  {
+    name: '1951 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/1951/{z}/{x}/{y}.jpg'],
+    minZoom: 9,
+    maxZoom: 17,
+  },
+  {
+    name: '1938 Aerial',
+    url: ['http://maps.co.mecklenburg.nc.us/tiles/1938/{z}/{x}/{y}.jpg'],
+    minZoom: 9,
+    maxZoom: 17,
+  }
 ]
 
 const years = aerials.map((el) => el.name)
