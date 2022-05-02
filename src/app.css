@@ -1,0 +1,29 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.leaflet-control-magnifying-glass {
+  background-image: url("img/logo.svg");
+  background-size: auto 22px;
+}
+
+.leaflet-magnifying-glass {
+  @apply absolute overflow-hidden rounded-full border-8 border-emerald-700;
+  /* border: 0.5em solid white; */
+  box-shadow: 0 0 50px black,
+  inset 0 0 4px black;
+  cursor: all-scroll;
+  /* box-shadow: 0 0 5px 5px #047857; */
+
+}
+
+
+
+.leaflet-magnifying-glass>.leaflet-container {
+  @apply w-full h-full;
+}
+
+.leaflet-control-magnifying-glass.glassactive {
+  background-color: #22c55e !important;
+}

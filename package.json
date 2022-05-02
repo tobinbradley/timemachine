@@ -1,24 +1,26 @@
 {
-  "name": "timemachine",
-  "version": "0.1.0",
+  "name": "nearmeck",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --modern"
-  },
-  "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "github:tobinbradley/mapbox-gl-geocoder",
-    "@zellwk/css-reset": "^0.1.0",
-    "core-js": "^3.8.3",
-    "file-saver": "^2.0.5",
-    "mapbox-gl": "^1.13.0",
-    "mapbox-gl-compare": "^0.4.0",
-    "vue": "^2.6.12"
+    "dev": "vite",
+    "build": "vite build",
+    "postbuild": "workbox generateSW workbox-config.cjs",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.11",
-    "@vue/cli-service": "^4.5.11",
-    "postcss-import": "^12.0.1",
-    "vue-template-compiler": "^2.6.12"
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.42",
+    "autoprefixer": "^10.4.6",
+    "postcss": "^8.4.13",
+    "postcss-load-config": "^3.1.4",
+    "svelte": "^3.48.0",
+    "svelte-preprocess": "^4.10.6",
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.7",
+    "workbox-cli": "^6.5.3"
+  },
+  "dependencies": {
+    "leaflet": "^1.8.0"
   }
 }

@@ -1,88 +1,9 @@
-import Vue from 'vue'
-import Map from './components/map.vue'
-import YearControlBefore from './components/yearcontrolbefore.vue'
-import YearControlAfter from './components/yearcontrolafter.vue'
-import Effects from './components/effects.vue'
-import { years, aerials } from './js/layers'
-import './main.css'
+import "./app.css"
+import App from "./App.svelte"
+import './lib/registerServiceWorker'
 
-Vue.config.productionTip = false
-
-let sharedState = {
-  aerials: aerials,
-  years: years,
-  beforeYear: years[years.length - 1],
-  afterYear: years[0],
-  effects: {
-    brightness: 0,
-    contrast: 0,
-    huerotate: 0,
-    saturate: 0,
-  },
-}
-
-// navbar
-document.querySelector('.btnSidebar').addEventListener('click', function() {
-  document.querySelector('.content').classList.toggle('isOpen')
-  document.querySelector('.btnSidebar').classList.toggle('active')
+const app = new App({
+  target: document.getElementById("app")
 })
 
-Map.data = function() {
-  return {
-    privateState: {
-      map: null,
-      center: [-80.843, 35.227],
-      zoom: 15,
-      beforeMap: null,
-      afterMap: null
-    },
-    sharedState: sharedState
-  }
-}
-new Vue({
-  el: 'sc-map',
-  render: h => h(Map)
-})
-
-YearControlBefore.data = function() {
-  return {
-    sharedState: sharedState
-  }
-}
-new Vue({
-  el: 'sc-yearmain',
-  render: h => h(YearControlBefore)
-})
-
-YearControlAfter.data = function() {
-  return {
-    sharedState: sharedState
-  }
-}
-new Vue({
-  el: 'sc-yearoverlay',
-  render: h => h(YearControlAfter)
-})
-
-// LayerControl.data = () => {
-//   return {
-//     sharedState: sharedState,
-//     years: sharedState.years,
-//     year: sharedState.afterYear
-//   }
-// }
-
-// new Vue({
-//   el: 'sc-yearoverlay',
-//   render: (h) => h(LayerControl)
-// })
-
-Effects.data = function() {
-  return {
-    sharedState: sharedState
-  }
-}
-new Vue({
-  el: 'sc-effects',
-  render: h => h(Effects)
-})
+export default app
