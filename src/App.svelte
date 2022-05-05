@@ -7,8 +7,8 @@
 <main class="bg-gray-300 w-screen h-screen flex flex-col">
   <div class="p-2 bg-white flex items-center shadow z-10">
     <div class="text-2xl font-semibold flex-grow">
-      <span class="font-bold text-emerald-700 tracking-widest">TIME</span>
-      MACHINE
+      <a href="./"><span class="font-bold text-emerald-700 tracking-widest">TIME</span>
+      MACHINE</a>
     </div>
     <div>
       <a href="https://gis.mecknc.gov" class="text-emerald-700">Mecklenburg County GIS</a>
