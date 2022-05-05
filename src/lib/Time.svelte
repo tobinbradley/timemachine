@@ -16,7 +16,7 @@
     {/if}
   </div>
   <div class="flex-grow">
-    <input class="w-full print:hidden" type="range" bind:value={$dte} min="{$timeStart}" max="{new Date().getTime()}" list="steplist">
+    <input class="w-full print:hidden" aria-label="Time slider" type="range" bind:value={$dte} min="{$timeStart}" max="{new Date().getTime()}" list="steplist">
     <datalist id="steplist">
       <option>{new Date().getTime()}</option>
       {#each $aerials as survey}
