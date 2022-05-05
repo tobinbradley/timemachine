@@ -12,17 +12,18 @@
   import "leaflet/dist/leaflet.css"
   import L from "leaflet"
   import countyBoundary from "../assets/countyboundary.json"
-  import "./leaflet.glass"
+  import magGlass from "./leaflet.glass"
   import "./leaflet-hash"
+  import btnControl from "./leaflet-button"
 
   let map
   let activeTiles
-  let portalTiles
   let marker
   let popup
   let magnifyingGlass
+  let currentAerial
 
-  $: if (map && $activeAerial) {
+  $: if (map && $activeAerial && $activeAerial !== currentAerial) {
     if (activeTiles) activeTiles.remove()
     activeTiles = L.tileLayer($activeAerial.url, {
       attribution: $activeAerial.attribution,
@@ -31,6 +32,7 @@
       minNativeZoom: $activeAerial.minzoom,
       minZoom: 9
     }).addTo(map)
+    currentAerial = $activeAerial
   }
 
   $: if ($untilDate && popup && popup.isOpen()) {
@@ -70,20 +72,34 @@
     magnifyingGlass.updateLayer(pLayer)
   }
 
+  function handleMagGlass() {
+    if (!magnifyingGlass) return
+
+    $portalOpen = !$portalOpen
+
+    if (map.hasLayer(magnifyingGlass)) {
+      map.removeLayer(magnifyingGlass)
+    } else {
+      magnifyingGlass.addTo(map)
+    }
+  }
+
   async function popupText(lng, lat, location = null) {
     let survey
     if ($activeAerial.attribution === "Near Map") {
       const response = await fetch(
         `https://api.nearmap.com/coverage/v2/point/${lng},${lat}?apikey=${$nearToken}&limit=1&until=${
-          new Date($untilDate * 1000).toISOString().split("T")[0]
+          new Date($untilDate).toISOString().split("T")[0]
         }`
       )
       const json = await response.json()
-      survey = `${$activeAerial.attribution} survey from ${new Date(json.surveys[0].captureDate).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        })}`
+      survey = `${$activeAerial.attribution} survey from ${new Date(
+        json.surveys[0].captureDate
+      ).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      })}`
     } else {
       survey = $activeAerial.attribution
     }
@@ -112,44 +128,15 @@
       }
     })
     map = L.map(node, {
-      maxBounds: boundary.getBounds(),
-      attributionControl: false
+      //maxBounds: boundary.getBounds(),
+      attributionControl: false,
+      preferCanvas: true
     }).fitBounds(boundary.getBounds())
 
-    new L.Hash(map)
-
-    L.control.attribution({ prefix: false }).addTo(map)
-
-    const overlays = {
-      "2016 Tree Canopy": L.tileLayer('https://mcmap.org/tiles/treecanopy2016/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        maxNativeZoom: 16,
-        minNativeZoom: 9,
-        minZoom: 9
-      }),
-      "2012 Tree Canopy": L.tileLayer('https://mcmap.org/tiles/treecanopy2012/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        maxNativeZoom: 16,
-        minNativeZoom: 9,
-        minZoom: 9
-      }),
-      "2008 Tree Canopy": L.tileLayer('https://mcmap.org/tiles/treecanopy2008/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        maxNativeZoom: 16,
-        minNativeZoom: 9,
-        minZoom: 9
-      }),
-      "2001 Tree Canopy": L.tileLayer('https://mcmap.org/tiles/treecanopy2001/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        maxNativeZoom: 16,
-        minNativeZoom: 9,
-        minZoom: 9
-      }),
-    }
-    L.control.layers(null, overlays).addTo(map)
-
+    // add county outline to map
     boundary.addTo(map)
 
+    // map popup
     map.on("click", (evt) => {
       popupText(evt.latlng.lng, evt.latlng.lat).then((content) => {
         if (popup) {
@@ -159,97 +146,64 @@
       })
     })
 
+    // hash map coordinates
+    new L.Hash(map)
 
-    // mag glass control
-    L.Control.MagnifyingGlass = L.Control.extend({
-      _magnifyingGlass: false,
-
-      options: {
-        position: "topleft",
-        title: "Toggle Magnifying Glass",
-        forceSeparateButton: false
-      },
-
-      initialize: function (magnifyingGlass, options) {
-        this._magnifyingGlass = magnifyingGlass
-        // Override default options
-        for (var i in options)
-          if (options.hasOwnProperty(i) && this.options.hasOwnProperty(i))
-            this.options[i] = options[i]
-      },
-
-      onAdd: function (map) {
-        var className = "leaflet-control-magnifying-glass",
-          container
-
-        if (map.zoomControl && !this.options.forceSeparateButton) {
-          container = map.zoomControl._container
-        } else {
-          container = L.DomUtil.create("div", "leaflet-bar")
+    // layer control
+    L.control.attribution({ prefix: false }).addTo(map)
+    const overlays = {
+      "2016 Tree Canopy": L.tileLayer(
+        "https://mcmap.org/tiles/treecanopy2016/{z}/{x}/{y}.png",
+        {
+          maxZoom: 17,
+          maxNativeZoom: 16,
+          minNativeZoom: 9,
+          minZoom: 9
         }
-
-        this._createButton(
-          this.options.title,
-          className,
-          container,
-          this._clicked,
-          map,
-          this._magnifyingGlass
-        )
-        return container
-      },
-
-      _createButton: function (
-        title,
-        className,
-        container,
-        method,
-        map,
-        magnifyingGlass
-      ) {
-        var link = L.DomUtil.create("a", className, container)
-        link.href = "#"
-        link.title = title
-
-        L.DomEvent.addListener(link, "click", L.DomEvent.stopPropagation)
-          .addListener(link, "click", L.DomEvent.preventDefault)
-          .addListener(
-            link,
-            "click",
-            function () {
-              method(map, magnifyingGlass)
-            },
-            map
-          )
-
-        return link
-      },
-
-      _clicked: function (map, magnifyingGlass) {
-        if (!magnifyingGlass) {
-          return
+      ),
+      "2012 Tree Canopy": L.tileLayer(
+        "https://mcmap.org/tiles/treecanopy2012/{z}/{x}/{y}.png",
+        {
+          maxZoom: 17,
+          maxNativeZoom: 16,
+          minNativeZoom: 9,
+          minZoom: 9
         }
-
-        $portalOpen = !$portalOpen
-        document.querySelector(".leaflet-control-magnifying-glass").classList.toggle("glassactive")
-
-        if (map.hasLayer(magnifyingGlass)) {
-          map.removeLayer(magnifyingGlass)
-        } else {
-          magnifyingGlass.addTo(map)
+      ),
+      "2008 Tree Canopy": L.tileLayer(
+        "https://mcmap.org/tiles/treecanopy2008/{z}/{x}/{y}.png",
+        {
+          maxZoom: 17,
+          maxNativeZoom: 16,
+          minNativeZoom: 9,
+          minZoom: 9
         }
-      }
-    })
-
-    L.control.magnifyingglass = function (magnifyingGlass, options) {
-      return new L.Control.MagnifyingGlass(magnifyingGlass, options)
+      ),
+      "2001 Tree Canopy": L.tileLayer(
+        "https://mcmap.org/tiles/treecanopy2001/{z}/{x}/{y}.png",
+        {
+          maxZoom: 17,
+          maxNativeZoom: 16,
+          minNativeZoom: 9,
+          minZoom: 9
+        }
+      ),
+      Roads: L.tileLayer(
+        "https://mcmap.org/geoserver/gwc/service/gmaps?layers=postgis%3Aroads&styles=postgis%3Aroads_aerial_overlay&zoom={z}&x={x}&y={y}&format=image/png",
+        {
+          maxZoom: 22,
+          minZoom: 9
+        }
+      )
     }
+    L.control.layers(null, overlays).addTo(map)
 
-    magnifyingGlass = L.magnifyingGlass({
+    // time machine glass
+    magnifyingGlass = magGlass({
       zoomOffset: 0,
       radius: 130,
       boundary: boundary,
-      layer: L.tileLayer('https://mcmap.org/tiles/1938/{z}/{x}/{y}.jpg', {
+      layer: L.tileLayer("https://mcmap.org/tiles/1938/{z}/{x}/{y}.jpg", {
         minZoom: 9,
         maxZoom: 22,
         maxNativeZoom: 17,
@@ -257,11 +211,12 @@
       })
     })
 
-    L.control
-      .magnifyingglass(magnifyingGlass, {
-        forceSeparateButton: true
-      })
-      .addTo(map)
+    btnControl({
+      title: "Time Machine portal",
+      onClick: handleMagGlass,
+      toggleClass: "glassactive",
+      buttonClass: "leaflet-control-magnifying-glass"
+    }).addTo(map)
   }
 </script>
 
