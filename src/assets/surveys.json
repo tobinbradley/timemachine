@@ -30,12 +30,6 @@
     "maxzoom": 17
   },
   {
-    "flydate": "2016 Tree Canopy",
-    "url": "https://mcmap.org/tiles/2016/{z}/{x}/{y}.jpg",
-    "minzoom": 9,
-    "maxzoom": 16
-  },
-  {
     "flydate": "2016",
     "url": "https://mcmap.org/tiles/2016/{z}/{x}/{y}.jpg",
     "minzoom": 9,
@@ -60,12 +54,6 @@
     "maxzoom": 17
   },
   {
-    "flydate": "2012 Tree Canopy",
-    "url": "https://mcmap.org/tiles/2012/{z}/{x}/{y}.jpg",
-    "minzoom": 9,
-    "maxzoom": 16
-  },
-  {
     "flydate": "2012",
     "url": "https://mcmap.org/tiles/2012/{z}/{x}/{y}.jpg",
     "minzoom": 9,
@@ -88,12 +76,6 @@
     "url": "https://mcmap.org/tiles/2009/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
-  },
-  {
-    "flydate": "2008 Tree Canopy",
-    "url": "https://mcmap.org/tiles/2007/{z}/{x}/{y}.jpg",
-    "minzoom": 9,
-    "maxzoom": 16
   },
   {
     "flydate": "2007",
@@ -124,12 +106,6 @@
     "url": "https://mcmap.org/tiles/2002/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
-  },
-  {
-    "flydate": "2001 Tree Canopy",
-    "url": "https://mcmap.org/tiles/2002/{z}/{x}/{y}.jpg",
-    "minzoom": 9,
-    "maxzoom": 16
   },
   {
     "flydate": "1997",
