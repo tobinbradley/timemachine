@@ -12,7 +12,7 @@ const makeAerials = []
 meckaerials.forEach(el => {
   makeAerials.push({
     url: el.url,
-    flydate: new Date(el.flydate).getTime() / 1000,
+    flydate: new Date(el.flydate).getTime(),
     minzoom: el.minzoom,
     maxzoom: el.maxzoom,
     attribution: `${el.flydate} Mecklenburg County GIS`
@@ -34,7 +34,8 @@ if (!import.meta.env.VITE_NEARTOKEN) {
       json.surveys.forEach(el => {
         makeAerials.push({
           url: `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.img?apikey=${import.meta.env.VITE_NEARTOKEN}&until=${el.captureDate}`,
-          flydate: new Date(el.captureDate).getTime() / 1000,
+          flydate: new Date(el.captureDate).getTime(),
+          capturedate: el.captureDate,
           minzoom: 0,
           maxzoom: el.resources.tiles[0].scale,
           attribution: "Near Map"
@@ -55,7 +56,7 @@ export let timeStart = derived(aerials, value => {
 })
 
 // until date
-export let untilDate = writable(new Date().getTime() / 1000)
+export let untilDate = writable(new Date().getTime())
 
 // portal start date
 export let portalDate = writable(null)
