@@ -114,7 +114,7 @@
 
   <svelte:window on:click="{()=>close()}" />
 
-  <div class="absolute top-16 z-50 w-full" style="left: 50%; transform: translate(-50%, 0); max-width: 70vw;">
+  <div class="absolute top-16 z-50 w-full print:hidden" style="left: 50%; transform: translate(-50%, 0); max-width: 70vw;">
     <input
       class="appearance-none bg-white border-2 focus:border-sky-600 w-full rounded-lg text-gray-900 px-2 py-1 outline-none shadow"
       type="text"
