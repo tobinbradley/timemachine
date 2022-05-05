@@ -14,7 +14,7 @@
       <a href="https://gis.mecknc.gov" class="text-emerald-700">Mecklenburg County GIS</a>
     </div>
   </div>
-  <div class="flex-grow">
+  <div class="flex-grow relative">
     <Map />
   </div>
   <div>
