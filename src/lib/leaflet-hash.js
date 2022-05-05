@@ -1,3 +1,5 @@
+// From https://github.com/mlevans/leaflet-hash
+
 (function(window) {
 	var HAS_HASHCHANGE = (function() {
 		var doc_mode = window.documentMode;
