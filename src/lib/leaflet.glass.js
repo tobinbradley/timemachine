@@ -1,5 +1,7 @@
 // Adapted from https://github.com/bbecquet/Leaflet.MagnifyingGlass
 
+import L from 'leaflet'
+
 L.MagnifyingGlass = L.Layer.extend({
   options: {
     radius: 100,
@@ -172,6 +174,6 @@ L.MagnifyingGlass = L.Layer.extend({
   }
 })
 
-L.magnifyingGlass = function (options) {
+export default function (options) {
   return new L.MagnifyingGlass(options)
 }
