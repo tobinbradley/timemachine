@@ -6,14 +6,14 @@
     location,
     activeAerial,
     activePortal,
-    portalOpen
+    portalOpen,
+    mapLocation
   } from "../store"
   import Search from "./Search.svelte"
   import "leaflet/dist/leaflet.css"
   import L from "leaflet"
   import countyBoundary from "../assets/countyboundary.json"
   import magGlass from "./leaflet.glass"
-  import "./leaflet-hash"
   import btnControl from "./leaflet-button"
 
   let map
@@ -22,6 +22,7 @@
   let popup
   let magnifyingGlass
   let currentAerial
+
 
   $: if (map && $activeAerial && $activeAerial !== currentAerial) {
     if (activeTiles) activeTiles.remove()
@@ -53,7 +54,7 @@
   $: if ($location.label && map) {
     if (marker) marker.remove()
     marker = L.marker($location.latlng).addTo(map)
-    map.flyTo($location.latlng, 20)
+    map.flyTo($location.latlng, $activeAerial.maxzoom < 20 ? $activeAerial.maxzoom : 20)
 
     popupText($location.latlng[1], $location.latlng[0], $location).then(
       (content) => {
@@ -131,7 +132,16 @@
       //maxBounds: boundary.getBounds(),
       attributionControl: false,
       preferCanvas: true
-    }).fitBounds(boundary.getBounds())
+    })
+
+    // zoom to hash on load, otherwise zoom to county
+    const hash = document.location.hash.replace('#', '').split('/')
+    if (hash.length === 4 && !isNaN(hash[0]) && !isNaN(hash[1]) || !isNaN(hash[2]) &&  !isNaN(hash[3])) {
+      map.setView([hash[1], hash[0]], hash[2])
+      $untilDate = parseInt(hash[3])
+    } else {
+      map.fitBounds(boundary.getBounds())
+    }
 
     // add county outline to map
     boundary.addTo(map)
@@ -146,8 +156,10 @@
       })
     })
 
-    // hash map coordinates
-    new L.Hash(map)
+    map.on("moveend", (evt) => {
+      const center = map.getCenter()
+      $mapLocation = [center.lng, center.lat, map.getZoom()]
+    })
 
     // layer control
     L.control.attribution({ prefix: false }).addTo(map)

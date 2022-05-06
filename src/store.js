@@ -1,4 +1,4 @@
-import { writable, readable, derived } from 'svelte/store'
+import { writable, readable, derived, get } from 'svelte/store'
 import meckaerials from './assets/surveys.json'
 
 // API tokens
@@ -94,3 +94,20 @@ export let location = writable({})
 
 // Portal open
 export let portalOpen = writable(false)
+
+// map location [lng,lat,zoom]
+export let mapLocation = writable(null)
+
+// set hash
+mapLocation.subscribe(value => {
+  setHash()
+})
+
+untilDate.subscribe(value => {
+  setHash()
+})
+
+function setHash() {
+  if (get(mapLocation) && get(untilDate))
+  document.location.hash = `${get(mapLocation).join('/')}/${get(untilDate)}`
+}
