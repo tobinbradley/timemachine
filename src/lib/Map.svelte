@@ -12,9 +12,10 @@
   import Search from "./Search.svelte"
   import "leaflet/dist/leaflet.css"
   import L from "leaflet"
-  import countyBoundary from "../assets/countyboundary.json"
+  import geoBoundary from "../assets/geoboundary.json"
   import magGlass from "./leaflet.glass"
   import btnControl from "./leaflet-button"
+  import overlays from '../assets/overlays'
 
   let map
   let activeTiles
@@ -123,7 +124,7 @@
   }
 
   function initMap(node) {
-    const boundary = L.geoJSON(countyBoundary, {
+    const boundary = L.geoJSON(geoBoundary, {
       style: {
         fill: false
       }
@@ -161,53 +162,9 @@
       $mapLocation = [center.lng, center.lat, map.getZoom()]
     })
 
-    // layer control
+    // attribution control
     L.control.attribution({ prefix: false }).addTo(map)
-    const overlays = {
-      "2016 Tree Canopy": L.tileLayer(
-        "https://mcmap.org/tiles/treecanopy2016/{z}/{x}/{y}.png",
-        {
-          maxZoom: 22,
-          maxNativeZoom: 16,
-          minNativeZoom: 9,
-          minZoom: 9
-        }
-      ),
-      "2012 Tree Canopy": L.tileLayer(
-        "https://mcmap.org/tiles/treecanopy2012/{z}/{x}/{y}.png",
-        {
-          maxZoom: 22,
-          maxNativeZoom: 16,
-          minNativeZoom: 9,
-          minZoom: 9
-        }
-      ),
-      "2008 Tree Canopy": L.tileLayer(
-        "https://mcmap.org/tiles/treecanopy2008/{z}/{x}/{y}.png",
-        {
-          maxZoom: 22,
-          maxNativeZoom: 16,
-          minNativeZoom: 9,
-          minZoom: 9
-        }
-      ),
-      "2001 Tree Canopy": L.tileLayer(
-        "https://mcmap.org/tiles/treecanopy2001/{z}/{x}/{y}.png",
-        {
-          maxZoom: 22,
-          maxNativeZoom: 16,
-          minNativeZoom: 9,
-          minZoom: 9
-        }
-      ),
-      Roads: L.tileLayer(
-        "https://mcmap.org/geoserver/gwc/service/gmaps?layers=postgis%3Aroads&styles=postgis%3Aroads_aerial_overlay&zoom={z}&x={x}&y={y}&format=image/png",
-        {
-          maxZoom: 22,
-          minZoom: 9
-        }
-      )
-    }
+    //layer control
     L.control.layers(null, overlays, { position: 'bottomleft' }).addTo(map)
 
     // time machine glass
