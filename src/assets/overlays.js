@@ -7,7 +7,8 @@ export default {
       maxZoom: 22,
       maxNativeZoom: 16,
       minNativeZoom: 9,
-      minZoom: 9
+      minZoom: 9,
+      opacity: 0.6
     }
   ),
   "2012 Tree Canopy": L.tileLayer(
@@ -16,7 +17,8 @@ export default {
       maxZoom: 22,
       maxNativeZoom: 16,
       minNativeZoom: 9,
-      minZoom: 9
+      minZoom: 9,
+      opacity: 0.6
     }
   ),
   "2008 Tree Canopy": L.tileLayer(
@@ -25,7 +27,8 @@ export default {
       maxZoom: 22,
       maxNativeZoom: 16,
       minNativeZoom: 9,
-      minZoom: 9
+      minZoom: 9,
+      opacity: 0.6
     }
   ),
   "2001 Tree Canopy": L.tileLayer(
@@ -34,7 +37,8 @@ export default {
       maxZoom: 22,
       maxNativeZoom: 16,
       minNativeZoom: 9,
-      minZoom: 9
+      minZoom: 9,
+      opacity: 0.6
     }
   ),
   Roads: L.tileLayer(
