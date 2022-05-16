@@ -38,7 +38,7 @@ if (!import.meta.env.VITE_NEARTOKEN) {
           capturedate: el.captureDate,
           minzoom: 0,
           maxzoom: el.resources.tiles[0].scale,
-          attribution: "Near Map"
+          attribution: "Nearmap"
         })
       })
       makeAerials.sort((a, b) => b.flydate - a.flydate)

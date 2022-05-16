@@ -88,7 +88,7 @@
 
   async function popupText(lng, lat, location = null) {
     let survey
-    if ($activeAerial.attribution === "Near Map") {
+    if ($activeAerial.attribution === "Nearmap") {
       const response = await fetch(
         `https://api.nearmap.com/coverage/v2/point/${lng},${lat}?apikey=${$nearToken}&limit=1&until=${
           new Date($untilDate).toISOString().split("T")[0]
@@ -117,7 +117,7 @@
               ? ` <a href="https://polaris3g.mecklenburgcountync.gov/#&pid=${location.pid}" target="_blank">POLARIS</a> 	&#9702;`
               : ""
           }
-          <a href="http://maps.co.mecklenburg.nc.us/meckscope/?lat=${lat}&lon=${lng}" target="_blank">Eagle View</a> 	&#9702;
+          <a href="http://maps.co.mecklenburg.nc.us/meckscope/?lat=${lat}&lon=${lng}" target="_blank">EagleView</a> &#9702;
           <a href="https://www.google.com/maps/@${lat},${lng},18z" target="_blank">Google Maps</a>
         </div>
     `
