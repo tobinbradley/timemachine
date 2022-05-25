@@ -1,5 +1,11 @@
 [
   {
+    "flydate": "2022",
+    "url": "https://mcmap.org/tiles/2022/{z}/{x}/{y}.jpg",
+    "minzoom": 8,
+    "maxzoom": 18
+  },
+  {
     "flydate": "2021",
     "url": "https://mcmap.org/tiles/2021/{z}/{x}/{y}.jpg",
     "minzoom": 8,
@@ -19,7 +25,7 @@
   },
   {
     "flydate": "2018",
-    "url": "https://mcmap.org/tiles/2018-high/{z}/{x}/{y}.jpg",
+    "url": "https://mcmap.org/tiles/2018/{z}/{x}/{y}.jpg",
     "minzoom": 11,
     "maxzoom": 18
   },
