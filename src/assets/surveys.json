@@ -25,7 +25,7 @@
   },
   {
     "flydate": "2018",
-    "url": "https://mcmap.org/tiles/2018-high/{z}/{x}/{y}.jpg",
+    "url": "https://mcmap.org/tiles/2018/{z}/{x}/{y}.jpg",
     "minzoom": 11,
     "maxzoom": 18
   },
