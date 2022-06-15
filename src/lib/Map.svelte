@@ -23,6 +23,7 @@
   let popup
   let magnifyingGlass
   let currentAerial
+  let currentLabel = ""
 
 
   $: if (map && $activeAerial && $activeAerial !== currentAerial) {
@@ -52,14 +53,15 @@
     )
   }
 
-  $: if ($location.label && map) {
+  $: if ($location.label && map && $location.label !== currentLabel) {
+    currentLabel = $location.label
     if (marker) marker.remove()
     marker = L.marker($location.latlng).addTo(map)
     map.flyTo($location.latlng, $activeAerial.maxzoom < 20 ? $activeAerial.maxzoom : 20)
 
     popupText($location.latlng[1], $location.latlng[0], $location).then(
       (content) => {
-        marker.bindPopup(content).openPopup()
+        marker.bindPopup(content)
       }
     )
   }
@@ -141,7 +143,8 @@
       map.setView([hash[1], hash[0]], hash[2])
       $untilDate = parseInt(hash[3])
     } else {
-      map.fitBounds(boundary.getBounds())
+      //map.fitBounds(boundary.getBounds())
+      map.setView([35.228, -80.84411], 15)
     }
 
     // add county outline to map
@@ -157,6 +160,10 @@
       })
     })
 
+    map.on("moveend", (evt) => {
+      const center = map.getCenter()
+      $mapLocation = [center.lng, center.lat, map.getZoom()]
+    })
     map.on("moveend", (evt) => {
       const center = map.getCenter()
       $mapLocation = [center.lng, center.lat, map.getZoom()]
@@ -191,9 +198,3 @@
 
 <div use:initMap id="#map" class="w-full h-full z-0" />
 <Search />
-
-<style>
-  :global(.leaflet-container) {
-    background-color: black;
-  }
-</style>
