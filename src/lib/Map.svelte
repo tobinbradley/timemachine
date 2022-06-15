@@ -131,6 +131,11 @@
         fill: false
       }
     })
+    const tmBoundary = L.geoJSON(geoBoundary, {
+      style: {
+        fill: false
+      }
+    })
     map = L.map(node, {
       //maxBounds: boundary.getBounds(),
       attributionControl: false,
@@ -178,7 +183,7 @@
     magnifyingGlass = magGlass({
       zoomOffset: 0,
       radius: 130,
-      boundary: boundary,
+      boundary: tmBoundary,
       layer: L.tileLayer("https://mcmap.org/tiles/1938/{z}/{x}/{y}.jpg", {
         minZoom: 9,
         maxZoom: 22,
