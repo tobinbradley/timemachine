@@ -90,7 +90,13 @@ export const activePortal = derived([portalDate, aerials], values => {
 })
 
 // Search results
-export let location = writable({})
+export let location = writable({
+  label: null,
+  address: null,
+  latlng: null,
+  pid: null,
+  groundpid: null
+})
 
 // Portal open
 export let portalOpen = writable(false)
