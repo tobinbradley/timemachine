@@ -22,6 +22,25 @@
   </head>
   <body class="overflow-hidden">
     <div id="app"></div>
+
+     <!-- service worker dialog -->
+     <dialog
+     id="sw-dialog"
+     class="bg-pink-600 text-white px-3 py-2 rounded-r-md border-l-2 border-white shadow-lg"
+   >
+     <div class="flex place-items-center">
+       <div class="flex-1 pr-6 text-lg">Time Machine as been updated!</div>
+       <div>
+         <button
+           class="px-2 py-1 bg-white outline-none rounded-md text-neutral-900 hover:bg-pink-700 hover:text-white transition-colors duration-300"
+           onclick="window.location.reload()"
+         >
+           Refresh
+         </button>
+       </div>
+     </div>
+   </dialog>
+
     <script type="module" src="/src/main.js"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117690040-1"></script>

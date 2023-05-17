@@ -17,7 +17,9 @@ if ('serviceWorker' in navigator) {
             // There is a new service worker available, show the notification
             if (navigator.serviceWorker.controller) {
               console.log('New content is available, please refresh.')
-              newWorker.postMessage({ type: 'SKIP_WAITING' })              
+              newWorker.postMessage({ type: 'SKIP_WAITING' })
+              const dialog = document.querySelector("#sw-dialog")
+              if (dialog) dialog.showModal()
             }
 
             break;
