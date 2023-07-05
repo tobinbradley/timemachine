@@ -2,7 +2,7 @@
   import Map from './lib/Map.svelte'
   import Time from './lib/Time.svelte'
   import Help from './lib/Help.svelte'
-  import { untilDate, portalDate, portalOpen } from './store'
+  import { aerials, untilDate, portalDate, portalOpen } from './store'
 </script>
 
 <main class="bg-gray-300 w-screen h-screen flex flex-col">
@@ -16,12 +16,16 @@
     </div>
   </div>
   <div class="flex-grow relative">
+    {#if $aerials}
     <Map />
+    {/if}
   </div>
   <div>
+    {#if $aerials}
     {#if $portalOpen}
     <Time dte={portalDate} isPortal={true} />
     {/if}
     <Time dte={untilDate} />
+    {/if}
   </div>
 </main>
