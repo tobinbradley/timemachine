@@ -4,8 +4,7 @@
     untilDate,
     portalDate,
     location,
-    activeAerial,
-    activePortal,
+    aerials,
     portalOpen,
     mapLocation
   } from "../store"
@@ -24,18 +23,22 @@
   let magnifyingGlass
   let currentAerial
   let currentLabel = ""
+  let activeAerial
+  let activePortal
 
+  $: activeAerial = $aerials.filter(elem => elem.flydate === $untilDate)[0]
+  $: activePortal = $aerials.filter(elem => elem.flydate === $portalDate)[0]
 
-  $: if (map && $activeAerial && $activeAerial !== currentAerial) {
+  $: if (map && activeAerial !== currentAerial) {
     if (activeTiles) activeTiles.remove()
-    activeTiles = L.tileLayer($activeAerial.url, {
-      attribution: $activeAerial.attribution,
-      maxZoom: $activeAerial.maxzoom + 1 <= 22 ? $activeAerial.maxzoom + 1 : 22,
-      maxNativeZoom: $activeAerial.maxzoom,
-      minNativeZoom: $activeAerial.minzoom,
+    activeTiles = L.tileLayer(activeAerial.url, {
+      attribution: activeAerial.attribution,
+      maxZoom: activeAerial.maxzoom + 1 <= 22 ? activeAerial.maxzoom + 1 : 22,
+      maxNativeZoom: activeAerial.maxzoom,
+      minNativeZoom: activeAerial.minzoom,
       minZoom: 9
     }).addTo(map)
-    currentAerial = $activeAerial
+    currentAerial = activeAerial
   }
 
   $: if ($untilDate && popup && popup.isOpen()) {
@@ -57,7 +60,7 @@
     currentLabel = $location.label
     if (marker) marker.remove()
     marker = L.marker($location.latlng).addTo(map)
-    map.flyTo($location.latlng, $activeAerial.maxzoom < 20 ? $activeAerial.maxzoom : 20)
+    map.flyTo($location.latlng, activeAerial.maxzoom < 20 ? activeAerial.maxzoom : 20)
 
     popupText($location.latlng[1], $location.latlng[0], $location).then(
       (content) => {
@@ -67,10 +70,10 @@
   }
 
   $: if (map && $portalDate && magnifyingGlass) {
-    const pLayer = L.tileLayer($activePortal.url, {
+    const pLayer = L.tileLayer(activePortal.url, {
       maxZoom: 22,
-      maxNativeZoom: $activePortal.maxzoom,
-      minNativeZoom: $activePortal.minzoom,
+      maxNativeZoom: activePortal.maxzoom,
+      minNativeZoom: activePortal.minzoom,
       minZoom: 9
     })
     magnifyingGlass.updateLayer(pLayer)
@@ -90,14 +93,14 @@
 
   async function popupText(lng, lat, location = null) {
     let survey
-    if ($activeAerial.attribution === "Nearmap") {
+    if (activeAerial.attribution === "Nearmap") {
       const response = await fetch(
         `https://api.nearmap.com/coverage/v2/point/${lng},${lat}?apikey=${$nearToken}&limit=1&until=${
           new Date($untilDate).toISOString().split("T")[0]
         }`
       )
       const json = await response.json()
-      survey = `${$activeAerial.attribution} survey from ${new Date(
+      survey = `${activeAerial.attribution} survey from ${new Date(
         json.surveys[0].captureDate
       ).toLocaleDateString("en-US", {
         year: "numeric",
@@ -105,7 +108,7 @@
         day: "numeric"
       })}`
     } else {
-      survey = $activeAerial.attribution
+      survey = activeAerial.attribution
     }
     return `
       <div class="text-sm text-center">
@@ -146,10 +149,12 @@
     const hash = document.location.hash.replace('#', '').split('/')
     if (hash.length === 4 && !isNaN(hash[0]) && !isNaN(hash[1]) || !isNaN(hash[2]) &&  !isNaN(hash[3])) {
       map.setView([hash[1], hash[0]], hash[2])
-      $untilDate = parseInt(hash[3])
+      const center = map.getCenter()
+      $mapLocation = [center.lng, center.lat, map.getZoom()]
     } else {
       //map.fitBounds(boundary.getBounds())
       map.setView([35.228, -80.84411], 15)
+      $mapLocation = [-80.84411, 35.228, 15]
     }
 
     // add county outline to map

@@ -3,7 +3,16 @@ import meckaerials from './assets/surveys.json'
 
 // API tokens
 export const nearToken = readable(import.meta.env.VITE_NEARTOKEN)
-export const eagleToken = readable("")
+
+function timestampSnap(stamp) {
+  let closest = get(aerials).reduce((prev, curr) => {
+    return Math.abs(curr.flydate - stamp) < Math.abs(prev.flydate - stamp)
+      ? curr
+      : prev
+  })
+
+  return closest.flydate
+}
 
 
 // surveys
@@ -49,44 +58,20 @@ if (!import.meta.env.VITE_NEARTOKEN) {
     })
 }
 
-// begin date for time slider
-export let timeStart = derived(aerials, value => {
-  if (!value) return null
-  return value[value.length - 1].flydate
-})
-
-// until date
-export let untilDate = writable(new Date().getTime())
-
-// portal start date
+// set active dates
 export let portalDate = writable(null)
-timeStart.subscribe(value => {
-  if (!value) return null
-  portalDate.set(value)
-})
+export let untilDate = writable(null)
+aerials.subscribe(arr => {
+  if (arr) {
+    portalDate.set(arr[arr.length - 1].flydate)
 
-// active aerial
-export const activeAerial = derived([untilDate, aerials], values => {
-  if (values[0] && values[1]) {
-    const el = values[1]
-      .filter((el) => {
-        return el.flydate <= values[0]
-      })
-    return el[0]
+    const hash = document.location.hash.replace("#", "").split("/")
+    if (hash.length === 4 && !isNaN(hash[3])) {
+      untilDate.set(timestampSnap(hash[3]))
+    } else {
+      untilDate.set(arr[0].flydate)
+    }
   }
-  return null
-})
-
-// active portal aerial
-export const activePortal = derived([portalDate, aerials], values => {
-  if (values[0] && values[1]) {
-    const el = values[1]
-      .filter((el) => {
-        return el.flydate <= values[0]
-      })
-    return el[0]
-  }
-  return null
 })
 
 // Search results
