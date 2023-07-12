@@ -1,61 +1,32 @@
 <script>
-  import { aerials } from '../store'
-
-  export let dte
-  export let isPortal = false
-
-  let componentTimestamp = $dte
-
-  function timestampSnap(stamp) {
-    let closest = $aerials.reduce((prev, curr) => {
-      return (Math.abs(curr.flydate - stamp) < Math.abs(prev.flydate - stamp) ? curr : prev);
-    })
-
-    setTimestamp(closest.flydate)
-  }
-
-  function setTimestamp(stamp) {
-    $dte = stamp
-    componentTimestamp = stamp
-  }
+  import { split, untilDate, portalDate } from '../store'
+  import Timeline from './Timeline.svelte'
 
 </script>
 
-
-<div class="px-2 flex items-center gap-2 bg-white py-1 w-full" class:accent={isPortal}>
-  <div class="w-7 text-center print:hidden">
-    {#if !isPortal}
-    <svg class="w-5 h-7 inline fill-gray-700"><use xlink:href="#icon-map"></use></svg>
-    {:else}
-    <img src="img/logo.svg" alt="Time Machine Logo" class="w-auto h-6">
-    {/if}
-  </div>
-  <div class="flex-grow">
-    <input class="w-full print:hidden" on:change={() => timestampSnap(componentTimestamp)} aria-label="Time slider" type="range" bind:value={componentTimestamp} min={$aerials[$aerials.length - 1].flydate} max={$aerials[0].flydate} list="steplist">
-    <datalist id="steplist">
-      <option>{new Date().getTime()}</option>
-      {#each $aerials as survey}
-        <option>{survey.flydate}</option>
-      {/each}
-    </datalist>
-  </div>
-  <div>
-    <select class="focus:outline-0 font-medium" bind:value={componentTimestamp} on:change={() => setTimestamp(componentTimestamp)}>
-      {#each $aerials as aerial}
-      <option value="{aerial.flydate}">{new Date(aerial.flydate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</option>
-      {/each}
-    </select>
-  </div>
-</div>
-
-<symbol id="icon-map" viewBox="0 0 32 32">
-  <path d="M0 6l10-4v24l-10 4z"></path>
-  <path d="M12 1l10 6v23l-10-5z"></path>
-  <path d="M24 7l8-6v24l-8 6z"></path>
-</symbol>
-
 <style>
-  .accent {
-    @apply bg-emerald-500;
+  .active {
+    @apply bg-pink-500 fill-white;
   }
 </style>
+
+
+<div class="flex items-center gap-2 bg-white w-full rounded-lg ">
+  {#if $split}
+  <Timeline dte={portalDate} reverse={true} hideSplit={true}/>
+  {/if}
+  <div class="hidden md:block">
+    <button
+    class="bg-gray-200  fill-gray-900 drop-shadow hover:border-pink-400 hover:fill-pink-400 transition-colors duration-300 ease-in-out rounded pb-2 pt-1  px-2"
+    class:active={$split}
+    on:click={() => { $split = !$split } }>
+      <svg class="w-5 h-5 inline rotate-90"><use xlink:href="#icon-pagebreak"></use></svg>
+    </button>
+  </div>
+  <Timeline dte={untilDate} />
+</div>
+
+
+<symbol id="icon-pagebreak" viewBox="0 0 32 32">
+<path d="M8 12v-12h24v12h-2v-10h-20v10zM32 18v14h-24v-14h2v12h20v-12zM16 14h4v2h-4zM10 14h4v2h-4zM22 14h4v2h-4zM28 14h4v2h-4zM0 9l6 6-6 6z"></path>
+</symbol>

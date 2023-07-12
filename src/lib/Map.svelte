@@ -5,43 +5,66 @@
     portalDate,
     location,
     aerials,
-    portalOpen,
-    mapLocation
+    mapLocation,
+    split
   } from "../store"
+  import Time from './Time.svelte'
   import Search from "./Search.svelte"
   import "leaflet/dist/leaflet.css"
   import L from "leaflet"
   import geoBoundary from "../assets/geoboundary.json"
-  import magGlass from "./leaflet.glass"
-  import btnControl from "./leaflet-button"
   import overlays from '../assets/overlays'
 
+  let leftLayer
+  let rightLayer
+
   let map
-  let activeTiles
   let marker
   let popup
-  let magnifyingGlass
-  let currentAerial
   let currentLabel = ""
   let activeAerial
-  let activePortal
 
-  $: activeAerial = $aerials.filter(elem => elem.flydate === $untilDate)[0]
-  $: activePortal = $aerials.filter(elem => elem.flydate === $portalDate)[0]
+  split.subscribe(val => {
+    if (map && $aerials) clip()
+    if (popup && popup.isOpen()) {
+      const latlng = popup.getLatLng()
+      popupText(latlng.lng, latlng.lat).then((content) => {
+        popup.setContent(content)
+      })
+    }
+  })
 
-  $: if (map && activeAerial !== currentAerial) {
-    if (activeTiles) activeTiles.remove()
-    activeTiles = L.tileLayer(activeAerial.url, {
-      attribution: activeAerial.attribution,
-      maxZoom: activeAerial.maxzoom + 1 <= 22 ? activeAerial.maxzoom + 1 : 22,
-      maxNativeZoom: activeAerial.maxzoom,
-      minNativeZoom: activeAerial.minzoom,
-      minZoom: 9
-    }).addTo(map)
-    currentAerial = activeAerial
+  $: if (map && $aerials && $untilDate && portalDate) {
+    const r = $aerials.filter(elem => elem.flydate === $untilDate)[0]
+    const l = $aerials.filter(elem => elem.flydate === $portalDate)[0]
+
+    if (!leftLayer || leftLayer._url !== l.url) {
+      if (leftLayer) leftLayer.remove()
+      leftLayer = L.tileLayer(l.url, {
+        attribution: l.attribution,
+        maxZoom: 23,
+        maxNativeZoom: l.maxzoom,
+        minNativeZoom: l.minzoom,
+        minZoom: 9
+      })
+
+    }
+
+    if (!rightLayer || rightLayer._url !== r.url) {
+      if (rightLayer) rightLayer.remove()
+      rightLayer = L.tileLayer(r.url, {
+        attribution: r.attribution,
+        maxZoom: 23,
+        maxNativeZoom: r.maxzoom,
+        minNativeZoom: r.minzoom,
+        minZoom: 9
+      }).addTo(map)
+    }
+
+    clip()
   }
 
-  $: if ($untilDate && popup && popup.isOpen()) {
+  $: if ($untilDate && $portalDate && popup && popup.isOpen()) {
     const latlng = popup.getLatLng()
     popupText(latlng.lng, latlng.lat).then((content) => {
       popup.setContent(content)
@@ -69,52 +92,39 @@
     )
   }
 
-  $: if (map && $portalDate && magnifyingGlass) {
-    const pLayer = L.tileLayer(activePortal.url, {
-      maxZoom: 22,
-      maxNativeZoom: activePortal.maxzoom,
-      minNativeZoom: activePortal.minzoom,
-      minZoom: 9
-    })
-    magnifyingGlass.updateLayer(pLayer)
-  }
-
-  function handleMagGlass() {
-    if (!magnifyingGlass) return
-
-    $portalOpen = !$portalOpen
-
-    if (map.hasLayer(magnifyingGlass)) {
-      map.removeLayer(magnifyingGlass)
-    } else {
-      magnifyingGlass.addTo(map)
-    }
-  }
-
   async function popupText(lng, lat, location = null) {
-    let survey
-    if (activeAerial.attribution === "Nearmap") {
-      const response = await fetch(
-        `https://api.nearmap.com/coverage/v2/point/${lng},${lat}?apikey=${$nearToken}&limit=1&until=${
-          new Date($untilDate).toISOString().split("T")[0]
-        }`
-      )
-      const json = await response.json()
-      survey = `${activeAerial.attribution} survey from ${new Date(
-        json.surveys[0].captureDate
-      ).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      })}`
-    } else {
-      survey = activeAerial.attribution
+    const r = $aerials.filter(elem => elem.flydate === $untilDate)[0]
+    const l = $aerials.filter(elem => elem.flydate === $portalDate)[0]
+
+    let survey = []
+
+    for (const elem of [l,r]) {
+      if (elem.attribution === "Nearmap") {
+        const response = await fetch(
+          `https://api.nearmap.com/coverage/v2/point/${lng},${lat}?apikey=${$nearToken}&limit=1&until=${
+            new Date(elem.flydate).toISOString().split("T")[0]
+          }`
+        )
+        const json = await response.json()
+        survey.push(`${new Date(
+          json.surveys[0].captureDate
+        ).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        })} ${elem.attribution}`)
+      } else {
+        survey.push(elem.attribution)
+      }
     }
+
     return `
       <div class="text-sm text-center">
         ${location ? `<div class="font-semibold">${location.label}</div>` : ""}
         ${location ? `<div class="mb-2">PID ${location.pid}</div>` : ""}
-        <div>${survey}</div>
+        <div>
+          ${$split ? 'Left: ' + survey[0] + '<br>' + 'Right: ' + survey[1] : survey[1]}
+        </div>
         <div>
           <a href="https://mcmap.org/geoportal/#${lng},${lat}/schools" target="_blank">GeoPortal</a> 	&#9702;
           ${
@@ -130,11 +140,6 @@
 
   function initMap(node) {
     const boundary = L.geoJSON(geoBoundary, {
-      style: {
-        fill: false
-      }
-    })
-    const tmBoundary = L.geoJSON(geoBoundary, {
       style: {
         fill: false
       }
@@ -174,37 +179,58 @@
       const center = map.getCenter()
       $mapLocation = [center.lng, center.lat, map.getZoom()]
     })
-    map.on("moveend", (evt) => {
-      const center = map.getCenter()
-      $mapLocation = [center.lng, center.lat, map.getZoom()]
-    })
 
-    // attribution control
-    L.control.attribution({ prefix: false }).addTo(map)
-    //layer control
-    L.control.layers(null, overlays, { position: 'bottomleft' }).addTo(map)
 
-    // time machine glass
-    magnifyingGlass = magGlass({
-      zoomOffset: 0,
-      radius: 130,
-      boundary: tmBoundary,
-      layer: L.tileLayer("https://mcmap.org/tiles/1938/{z}/{x}/{y}.jpg", {
-        minZoom: 9,
-        maxZoom: 22,
-        maxNativeZoom: 17,
-        minNativeZoom: 8
-      })
-    })
+    map.on("resize", clip)
+    map.on("move", clip)
 
-    btnControl({
-      title: "Time Machine portal",
-      onClick: handleMagGlass,
-      toggleClass: "glassactive",
-      buttonClass: "leaflet-control-magnifying-glass"
-    }).addTo(map)
+    L.control.layers(null, overlays, { position: 'topright' }).addTo(map)
+
+  }
+
+  function clip() {
+    if (map.getSize().x <= 640) {
+      $split = false
+    }
+
+    if ($split) {
+      const nw = map.containerPointToLayerPoint([0, 0])
+      const se = map.containerPointToLayerPoint(map.getSize())
+
+      const top = nw.y
+      const middle = nw.x + (se.x - nw.x) * 0.5
+      const right = nw.x + (se.x - nw.x)
+      const bottom = se.y
+      const left = nw.x
+
+      if (!map.hasLayer(leftLayer)) leftLayer.addTo(map)
+
+      leftLayer.getContainer().style.clipPath = `
+          polygon(
+            ${left}px ${top}px,
+            ${middle}px ${top}px,
+            ${middle}px ${bottom}px,
+            ${left}px ${bottom}px
+          )`
+
+      rightLayer.getContainer().style.clipPath = `
+          polygon(
+            ${middle}px ${top}px,
+            ${right}px ${top}px,
+            ${right}px ${bottom}px,
+            ${middle}px ${bottom}px
+          )`
+
+    } else {
+      if (map.hasLayer(leftLayer)) map.removeLayer(leftLayer)
+      rightLayer.getContainer().style.clipPath = ''
+    }
   }
 </script>
 
 <div use:initMap id="#map" class="w-full h-full z-0" />
 <Search />
+
+<div class="absolute bottom-2 left-4 right-4 z-50 md:flex md:gap-3">
+  <Time />
+</div>

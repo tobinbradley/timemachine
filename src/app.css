@@ -3,30 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@media print {
+  @page {
+    size: landscape
+  }
+}
+
 .leaflet-control-container {
   @apply print:hidden;
 }
-
-.leaflet-control-magnifying-glass {
-  background-image: url("../img/logo.svg");
-  background-size: auto 22px;
-}
-
-.leaflet-magnifying-glass {
-  @apply absolute overflow-hidden rounded-full border-8 border-emerald-700;
-  box-shadow: 0 0 50px black,
-  inset 0 0 4px black;
-  cursor: all-scroll;
-}
-
-.leaflet-magnifying-glass>.leaflet-container {
-  @apply w-full h-full;
-}
-
-.leaflet-control-magnifying-glass.glassactive {
-  background-color: #22c55e !important;
-}
-
 
 #sw-dialog::backdrop {
   backdrop-filter: blur(3px);
