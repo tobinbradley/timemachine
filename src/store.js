@@ -17,6 +17,8 @@ function timestampSnap(stamp) {
 // split screen
 export let split = writable(false)
 
+export let print = writable(false)
+
 // surveys
 export let aerials = writable(null)
 const makeAerials = []
@@ -43,7 +45,6 @@ if (!import.meta.env.VITE_NEARTOKEN) {
       return response.json();
     })
     .then(json => {
-      console.log(json)
       json.surveys.forEach(el => {
         makeAerials.push({
           url: `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.img?apikey=${import.meta.env.VITE_NEARTOKEN}&until=${el.captureDate}`,
@@ -87,11 +88,17 @@ export let location = writable({
   groundpid: null
 })
 
-// Portal open
-export let portalOpen = writable(false)
-
 // map location [lng,lat,zoom]
-export let mapLocation = writable(null)
+export let mapLocation = writable([-80.84411, 35.228, 15])
+
+
+const hash = document.location.hash.replace("#", "").split("/")
+if (
+  (hash.length === 4 && !isNaN(hash[0]) && !isNaN(hash[1])) ||
+  (!isNaN(hash[2]) && !isNaN(hash[3]))
+) {
+  mapLocation.set([hash[1], hash[0], hash[2]])
+}
 
 // set hash
 mapLocation.subscribe(value => {
@@ -103,6 +110,8 @@ untilDate.subscribe(value => {
 })
 
 function setHash() {
-  if (get(mapLocation) && get(untilDate))
-  document.location.hash = `${get(mapLocation).join('/')}/${get(untilDate)}`
+  if (get(mapLocation) && get(untilDate)) {
+    const loc = get(mapLocation)
+    document.location.hash = `${loc[1]}/${loc[0]}/${loc[2]}/${get(untilDate)}`
+  }
 }

@@ -25,12 +25,12 @@
 
 <style>
   .reverse {
-    @apply flex-row-reverse;
+    @apply flex-row-reverse text-right;
   }
 </style>
 
 <div class="px-1 flex items-center gap-2 w-full" class:reverse={reverse} class:hidden={hideSplit && !$split}>
-  <div class="grow">
+  <div class="grow hidden md:block print:hidden">
     <input class="w-full print:hidden" on:change={() => timestampSnap(componentTimestamp)} aria-label="Time slider" type="range" bind:value={componentTimestamp} min={$aerials[$aerials.length - 1].flydate} max={$aerials[0].flydate} list="steplist">
     <datalist id="steplist">
       <option>{new Date().getTime()}</option>
@@ -40,9 +40,9 @@
     </datalist>
   </div>
   <div>
-    <select class="focus:outline-0 font-medium bg-transparent print:hidden" bind:value={componentTimestamp} on:change={() => setTimestamp(componentTimestamp)}>
+    <select class="focus:outline-0 font-medium bg-transparent print:appearance-none print:text-black" bind:value={componentTimestamp} on:change={() => setTimestamp(componentTimestamp)}>
       {#each $aerials as aerial}
-      <option value="{aerial.flydate}">{aerial.capturedate}</option>
+      <option class="bg-slate-800 text-white" value="{aerial.flydate}">{aerial.capturedate}</option>
       {/each}
     </select>
   </div>

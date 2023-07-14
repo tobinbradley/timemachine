@@ -8,7 +8,6 @@
     mapLocation,
     split
   } from "../store"
-  import Time from './Time.svelte'
   import Search from "./Search.svelte"
   import "leaflet/dist/leaflet.css"
   import L from "leaflet"
@@ -17,12 +16,14 @@
 
   let leftLayer
   let rightLayer
-
   let map
   let marker
   let popup
   let currentLabel = ""
-  let activeAerial
+
+  const resizeObserver = new ResizeObserver(() => {
+    map.invalidateSize()
+  });
 
   split.subscribe(val => {
     if (map && $aerials) clip()
@@ -83,7 +84,7 @@
     currentLabel = $location.label
     if (marker) marker.remove()
     marker = L.marker($location.latlng).addTo(map)
-    map.flyTo($location.latlng, activeAerial.maxzoom < 20 ? activeAerial.maxzoom : 20)
+    map.setView($location.latlng, 19)
 
     popupText($location.latlng[1], $location.latlng[0], $location).then(
       (content) => {
@@ -151,16 +152,8 @@
     })
 
     // zoom to hash on load, otherwise zoom to county
-    const hash = document.location.hash.replace('#', '').split('/')
-    if (hash.length === 4 && !isNaN(hash[0]) && !isNaN(hash[1]) || !isNaN(hash[2]) &&  !isNaN(hash[3])) {
-      map.setView([hash[1], hash[0]], hash[2])
-      const center = map.getCenter()
-      $mapLocation = [center.lng, center.lat, map.getZoom()]
-    } else {
-      //map.fitBounds(boundary.getBounds())
-      map.setView([35.228, -80.84411], 15)
-      $mapLocation = [-80.84411, 35.228, 15]
-    }
+    map.setView([$mapLocation[1], $mapLocation[0]], $mapLocation[2])
+
 
     // add county outline to map
     boundary.addTo(map)
@@ -184,15 +177,13 @@
     map.on("resize", clip)
     map.on("move", clip)
 
-    L.control.layers(null, overlays, { position: 'topright' }).addTo(map)
+    L.control.layers(null, overlays, { position: 'bottomleft' }).addTo(map)
+
+    resizeObserver.observe(node)
 
   }
 
   function clip() {
-    if (map.getSize().x <= 640) {
-      $split = false
-    }
-
     if ($split) {
       const nw = map.containerPointToLayerPoint([0, 0])
       const se = map.containerPointToLayerPoint(map.getSize())
@@ -230,7 +221,3 @@
 
 <div use:initMap id="#map" class="w-full h-full z-0" />
 <Search />
-
-<div class="absolute bottom-2 left-4 right-4 z-50 md:flex md:gap-3">
-  <Time />
-</div>

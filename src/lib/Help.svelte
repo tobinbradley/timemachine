@@ -12,11 +12,11 @@ function openHelp() {
 
 </script>
 
-<div class="h-full">
-  <button class="px-2 lg:px-6 py-4 border-b-2 border-transparent hover:border-b-emerald-500 leading-[22px] md:px-3 text-gray-600 hover:text-emerald-600 transition-colors duration-300 ease-in-out outline-0" on:click={openHelp}>Help</button>
+<div class="h-full ">
+  <button class="px-2 h-full border-b-2 border-transparent hover:border-b-white md:px-6 py-3 leading-[22px] md:px-3 transition-colors duration-300 ease-in-out outline-0" on:click={openHelp}>Help</button>
 </div>
 
-<dialog class="help-dialog " bind:this={dialog}>
+<dialog class="help-dialog rounded-lg" bind:this={dialog}>
   <div class="flex flex-col h-full">
     <div class="text-right">
       <form method="dialog">

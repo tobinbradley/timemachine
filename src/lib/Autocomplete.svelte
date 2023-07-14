@@ -114,9 +114,9 @@
 
   <svelte:window on:click="{()=>close()}" />
 
-  <div class="absolute top-3 z-50 w-full print:hidden" style="left: 50%; transform: translate(-50%, 0); max-width: 70vw;">
+  <div class="absolute top-3 right-3 z-50 w-96 print:hidden" style="max-width: 80dvw">
     <input
-      class="appearance-none bg-white border-2 focus:border-sky-600 w-full rounded-lg text-gray-900 px-2 py-1 outline-none shadow"
+      class=" bg-white w-full rounded text-gray-900 px-2 py-1 shadow focus:outline-primaryPoppyRed"
       type="text"
       aria-label="search for an address or a place"
       {name}
@@ -135,8 +135,7 @@
     <ul class="autocomplete-results {!isOpen ? 'hidden' : ''} border-gray-500 shadow-lg rounded-lg mx-1 bg-white max-h-screen overflow-y-auto overflow-x-hidden z-50" bind:this={list}>
       {#if !nomatch}
         {#each results as result, i}
-          <li on:click="{()=>close(i)}" on:keypress="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 py-1 px-2 cursor-pointer">
-          <span class="bg-blue-700 px-2 py-1 text-white font-bold rounded-sm text-sm">{result.type}</span>
+          <li on:click="{()=>close(i)}" on:keypress="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 text-sm py-1 px-2 cursor-pointer">
           {@html result.label}
           </li>
         {/each}

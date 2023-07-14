@@ -3,10 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
-@media print {
-  @page {
-    size: landscape
-  }
+input {
+  @apply accent-primaryPoppyRed focus:border-primaryPoppyRed
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+  @apply bg-slate-500;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-800;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-800;
 }
 
 .leaflet-control-container {
