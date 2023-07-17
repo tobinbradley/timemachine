@@ -33,6 +33,11 @@ input {
   @apply bg-slate-800;
 }
 
+.leaflet-container {
+  @apply focus:outline-none;
+  background: #1e293b !important;
+}
+
 .leaflet-control-container {
   @apply print:hidden;
 }
