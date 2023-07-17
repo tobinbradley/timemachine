@@ -6,10 +6,10 @@
 
 <style>
   button {
-    @apply bg-slate-300 hover:bg-slate-400 text-slate-800 fill-slate-800 font-bold py-1 px-4 rounded-l transition-colors;
+    @apply bg-slate-600 fill-white hover:bg-slate-700 text-slate-800 font-bold py-1 px-4 focus:outline-none transition-colors;
   }
   .active {
-    @apply bg-slate-600 hover:bg-slate-600 fill-white;
+    @apply bg-primaryPoppyRed hover:bg-primaryPoppyRed text-white text-sm font-semibold  fill-white;
   }
 </style>
 
