@@ -17,16 +17,16 @@ const config = {
     fontFamily: {
       sans: [
         "Lato",
-        "Source Sans 3",
+        "'Source Sans 3'",
         "Roboto",
         "ui-sans-serif",
         "system-ui",
         "-apple-system",
         "BlinkMacSystemFont",
-        "Segoe UI",
-        "Helvetica Neue",
+        "'Segoe UI'",
+        "'Helvetica Neue'",
         "Arial",
-        "Noto Sans",
+        "'Noto Sans'",
         "sans-serif"
       ],
       serif: [
@@ -34,8 +34,9 @@ const config = {
         "Georgia",
         "Cambria",
         "Charter",
-        "Bitstream Charter",
-        "Sitka Text",
+        "'Bitstream Charter'",
+        "'Sitka Text'",
+        "'Noto Serif'",
         "serif"
       ]
     }
