@@ -85,9 +85,9 @@
 
 <dialog class="help-dialog rounded-lg bg-slate-800 text-white" bind:this={dialog}>
   <div class="flex flex-col h-full">
-    <div class="text-right">
+    <div class="text-right p-3">
       <form method="dialog">
-        <button class="text-white font-semibold py-1 px-2 mb-2 bg-primaryPoppyRed rounded shadow-sm hover:shadow transition-all ease-in-out">Close</button>
+        <button class="text-white font-semibold py-1 px-2 bg-primaryPoppyRed rounded shadow-sm hover:shadow transition-all ease-in-out">Close</button>
       </form>
     </div>
 
@@ -97,7 +97,7 @@
       {/if}
     </div>
 
-    <div class="text-center mt-2">
+    <div class="text-center p-3">
       <a href="https://github.com/tobinbradley/timemachine" target="_blank"
       class="px-4 hover:underline">Time Machine on Github</a> &bullet;
       <a href="https://gis.mecknc.gov" target="_blank"
