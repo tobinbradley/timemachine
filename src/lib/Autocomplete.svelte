@@ -110,6 +110,10 @@
   .autocomplete-result:hover {
     @apply bg-orange-200;
   }
+
+  input {
+    user-select: all;
+  }
   </style>
 
   <svelte:window on:click="{()=>close()}" />
@@ -125,6 +129,7 @@
       bind:value="{search}"
       on:input="{(event)=>onChange(event)}"
       on:keydown="{(event)=>onKeyDown(event)}"
+      on:click={input.select()}
       bind:this={input}
       use:focusOnMount
     >
@@ -135,8 +140,8 @@
     <ul class="autocomplete-results {!isOpen ? 'hidden' : ''} border-gray-500 shadow-lg rounded-lg mx-1 bg-white max-h-screen overflow-y-auto overflow-x-hidden z-50" bind:this={list}>
       {#if !nomatch}
         {#each results as result, i}
-          <li on:click="{()=>close(i)}" on:keypress="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 text-sm py-1 px-2 cursor-pointer">
-          {@html result.label}
+          <li   class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 text-sm py-1 px-2 cursor-pointer">
+          <button class="block" on:keypress="{()=>close(i)}" on:click="{()=>close(i)}">{@html result.label}</button>
           </li>
         {/each}
       {:else}
