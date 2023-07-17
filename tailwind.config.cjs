@@ -11,13 +11,13 @@ const config = {
         secondaryCoolGrey: "#a1a1a4",
         secondaryGold: "#c1962e",
         secondaryBlue: "#5aa3d2",
-        secondaryGreen: "#b0d239",
-        huh: "#211746"
+        secondaryGreen: "#b0d239"
       }
     },
     fontFamily: {
       sans: [
         "Lato",
+        "Source Sans 3",
         "Roboto",
         "ui-sans-serif",
         "system-ui",
@@ -31,10 +31,11 @@ const config = {
       ],
       serif: [
         "Merriweather",
+        "Georgia",
+        "Cambria",
         "Charter",
         "Bitstream Charter",
         "Sitka Text",
-        "Cambria",
         "serif"
       ]
     }
