@@ -1,13 +1,14 @@
 <script>
   import Map from './lib/Map.svelte'
   import Time from './lib/Time.svelte'
-  import { aerials, split, print } from './store'
+  import { aerials, split } from './store'
 
   let dialog
   let showHelp = false
+  let print = false
 
   window.addEventListener("afterprint", (event) => {
-    $print = false
+    print = false
   })
 
   function sleep(ms) {
@@ -15,8 +16,8 @@
   }
 
   async function printPreview() {
-    $print = !$print
-    if ($print) {
+    print = !print
+    if (print) {
       await sleep(600)
       window.print()
     }
@@ -48,10 +49,10 @@
   }
 </style>
 
-<main class="w-screen h-screen flex flex-col print:text-black fill-white text-white bg-slate-800" class:print={$print}>
+<main class="w-screen h-screen flex flex-col print:text-black fill-white text-white bg-slate-800" class:print={print}>
   <header class="flex items-center shadow z-10">
     <div class="grow pl-4">
-      <a href="./" class="text-lg leading-none font-semibold "><span class="hidden sm:inline">Mecklenburg County </span>Time Machine</a>
+      <a href="./" class="text-xl leading-none font-semibold "><span class="hidden sm:inline">Mecklenburg County </span>Time Machine</a>
     </div>
     <div>
       <button
