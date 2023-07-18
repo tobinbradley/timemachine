@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media print{
+  @page {
+    size: landscape
+  }
+}
+
 input {
   @apply accent-primaryPoppyRed focus:border-primaryPoppyRed
 }
