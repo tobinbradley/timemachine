@@ -17,8 +17,6 @@ function timestampSnap(stamp) {
 // split screen
 export let split = writable(false)
 
-export let print = writable(false)
-
 // surveys
 export let aerials = writable(null)
 const makeAerials = []
