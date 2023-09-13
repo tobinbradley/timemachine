@@ -27,3 +27,4 @@ dist-ssr
 deploy.sh
 .env
 TODO.md
+bun.lockb
