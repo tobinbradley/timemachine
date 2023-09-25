@@ -1,157 +1,157 @@
 [
   {
     "flydate": "2023",
-    "url": "https://mcmap.org/tiles/2023/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2023/{z}/{x}/{y}.jpg",
     "minzoom": 8,
     "maxzoom": 18
   },
   {
     "flydate": "2022",
-    "url": "https://mcmap.org/tiles/2022/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2022/{z}/{x}/{y}.jpg",
     "minzoom": 8,
     "maxzoom": 18
   },
   {
     "flydate": "2021",
-    "url": "https://mcmap.org/tiles/2021/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2021/{z}/{x}/{y}.jpg",
     "minzoom": 8,
     "maxzoom": 18
   },
   {
     "flydate": "2020",
-    "url": "https://mcmap.org/tiles/2020/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2020/{z}/{x}/{y}.jpg",
     "minzoom": 8,
     "maxzoom": 18
   },
   {
     "flydate": "2019",
-    "url": "https://mcmap.org/tiles/2019/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2019/{z}/{x}/{y}.jpg",
     "minzoom": 11,
     "maxzoom": 18
   },
   {
     "flydate": "2018",
-    "url": "https://mcmap.org/tiles/2018/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2018/{z}/{x}/{y}.jpg",
     "minzoom": 11,
     "maxzoom": 18
   },
   {
     "flydate": "2017",
-    "url": "https://mcmap.org/tiles/2017/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2017/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2016",
-    "url": "https://mcmap.org/tiles/2016/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2016/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2015",
-    "url": "https://mcmap.org/tiles/2015/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2015/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2014",
-    "url": "https://mcmap.org/tiles/2014/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2014/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2013",
-    "url": "https://mcmap.org/tiles/2013/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2013/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2012",
-    "url": "https://mcmap.org/tiles/2012/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2012/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2011",
-    "url": "https://mcmap.org/tiles/2011/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2011/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2010",
-    "url": "https://mcmap.org/tiles/2010/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2010/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2009",
-    "url": "https://mcmap.org/tiles/2009/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2009/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2007",
-    "url": "https://mcmap.org/tiles/2007/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2007/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2006",
-    "url": "https://mcmap.org/tiles/2006/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2006/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2005",
-    "url": "https://mcmap.org/tiles/2005/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2005/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2004",
-    "url": "https://mcmap.org/tiles/2004/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2004/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "2002",
-    "url": "https://mcmap.org/tiles/2002/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/2002/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "1997",
-    "url": "https://mcmap.org/tiles/1997/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/1997/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "1993",
-    "url": "https://mcmap.org/tiles/1993/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/1993/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "1980",
-    "url": "https://mcmap.org/tiles/1980/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/1980/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "1978",
-    "url": "https://mcmap.org/tiles/1978/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/1978/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "1951",
-    "url": "https://mcmap.org/tiles/1951/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/1951/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   },
   {
     "flydate": "1938",
-    "url": "https://mcmap.org/tiles/1938/{z}/{x}/{y}.jpg",
+    "url": "https://maps.mecknc.gov/tiles/1938/{z}/{x}/{y}.jpg",
     "minzoom": 9,
     "maxzoom": 17
   }

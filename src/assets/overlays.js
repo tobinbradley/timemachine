@@ -2,7 +2,7 @@ import L from 'leaflet'
 
 export default {
   "2016 Tree Canopy": L.tileLayer(
-    "https://mcmap.org/tiles/treecanopy2016/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2016/{z}/{x}/{y}.png",
     {
       maxZoom: 22,
       maxNativeZoom: 16,
@@ -12,7 +12,7 @@ export default {
     }
   ),
   "2012 Tree Canopy": L.tileLayer(
-    "https://mcmap.org/tiles/treecanopy2012/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2012/{z}/{x}/{y}.png",
     {
       maxZoom: 22,
       maxNativeZoom: 16,
@@ -22,7 +22,7 @@ export default {
     }
   ),
   "2008 Tree Canopy": L.tileLayer(
-    "https://mcmap.org/tiles/treecanopy2008/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2008/{z}/{x}/{y}.png",
     {
       maxZoom: 22,
       maxNativeZoom: 16,
@@ -32,7 +32,7 @@ export default {
     }
   ),
   "2001 Tree Canopy": L.tileLayer(
-    "https://mcmap.org/tiles/treecanopy2001/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2001/{z}/{x}/{y}.png",
     {
       maxZoom: 22,
       maxNativeZoom: 16,
