@@ -1,6 +1,6 @@
 import L from 'leaflet'
 
-export default {
+const overlays = {
   "2016 Tree Canopy": L.tileLayer(
     "https://maps.mecknc.gov/tiles/treecanopy2016/{z}/{x}/{y}.png",
     {
@@ -56,3 +56,13 @@ export default {
     }
   )
 }
+
+// Add zIndex starting at 2 to force everything over the two base aerials
+// on split screen
+let i = 2
+for (const property in overlays) {
+  overlays[property].setZIndex(i)
+  i++
+}
+
+export default overlays

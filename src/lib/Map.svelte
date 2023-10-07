@@ -177,7 +177,7 @@
     map.on("resize", clip)
     map.on("move", clip)
 
-    L.control.layers(null, overlays, { position: 'bottomleft' }).addTo(map)
+    L.control.layers(null, overlays, { position: 'bottomleft', autoZIndex: false }).addTo(map)
 
     resizeObserver.observe(node)
 
