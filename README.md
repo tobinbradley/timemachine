@@ -8,6 +8,8 @@ Site: [https://timemachine.mcmap.org](https://timemachine.mcmap.org)
 
 ![Architecture](./Architecture.png)
 
+Time machine can draw any `z/x/y` raster tiles.
+
 Time Machine defines aerials in `src/assets/surveys.json` and overlay layers in `src/assets/overlays.js`. If you are a NearMap customer with an api key, you can create a `.env` file in the root project folder and create a variable like this:
 
 ```.env
