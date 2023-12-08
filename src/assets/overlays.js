@@ -1,28 +1,38 @@
 import L from 'leaflet'
 
 const overlays = {
-  "2016 Tree Canopy": L.tileLayer(
-    "https://maps.mecknc.gov/tiles/treecanopy2016/{z}/{x}/{y}.png",
+  "2023 Tree Canopy": L.tileLayer(
+    "https://maps.mecknc.gov/tiles/treecanopy2023/{z}/{x}/{y}",
     {
       maxZoom: 22,
-      maxNativeZoom: 16,
+      maxNativeZoom: 15,
+      minNativeZoom: 9,
+      minZoom: 9,
+      opacity: 0.6
+    }
+  ),
+  "2016 Tree Canopy": L.tileLayer(
+    "https://maps.mecknc.gov/tiles/treecanopy2016/{z}/{x}/{y}",
+    {
+      maxZoom: 22,
+      maxNativeZoom: 15,
       minNativeZoom: 9,
       minZoom: 9,
       opacity: 0.6
     }
   ),
   "2012 Tree Canopy": L.tileLayer(
-    "https://maps.mecknc.gov/tiles/treecanopy2012/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2012/{z}/{x}/{y}",
     {
       maxZoom: 22,
-      maxNativeZoom: 16,
+      maxNativeZoom: 15,
       minNativeZoom: 9,
       minZoom: 9,
       opacity: 0.6
     }
   ),
   "2008 Tree Canopy": L.tileLayer(
-    "https://maps.mecknc.gov/tiles/treecanopy2008/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2008/{z}/{x}/{y}",
     {
       maxZoom: 22,
       maxNativeZoom: 16,
@@ -32,7 +42,7 @@ const overlays = {
     }
   ),
   "2001 Tree Canopy": L.tileLayer(
-    "https://maps.mecknc.gov/tiles/treecanopy2001/{z}/{x}/{y}.png",
+    "https://maps.mecknc.gov/tiles/treecanopy2001/{z}/{x}/{y}",
     {
       maxZoom: 22,
       maxNativeZoom: 16,
