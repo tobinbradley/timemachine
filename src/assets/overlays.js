@@ -1,6 +1,16 @@
 import L from 'leaflet'
 
 const overlays = {
+  "2023 Color Infrared": L.tileLayer(
+    "https://maps.mecknc.gov/tiles/2023cir/{z}/{x}/{y}",
+    {
+      maxZoom: 22,
+      maxNativeZoom: 16,
+      minNativeZoom: 9,
+      minZoom: 9,
+      opacity: 1
+    }
+  ),
   "2023 Tree Canopy": L.tileLayer(
     "https://maps.mecknc.gov/tiles/treecanopy2023/{z}/{x}/{y}",
     {
